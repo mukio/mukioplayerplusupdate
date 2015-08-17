@@ -27,7 +27,7 @@
 			import com.longtailvideo.jwplayer.player.Player;
 			import com.longtailvideo.jwplayer.utils.Strings;
 			
-			import flash.external;
+			import flash.external.*;
 			
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
