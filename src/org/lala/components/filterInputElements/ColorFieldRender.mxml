@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                          xmlns:s="library://ns.adobe.com/flex/spark" 
+                          xmlns:mx="library://ns.adobe.com/flex/mx" 
+                          focusEnabled="true">
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            private var color:int;
+            [Bindable]
+            private var tag:String;
+            override public function set data(value:Object):void
+            {
+                super.data = value;
+                tag = value.exp;
+                switch(data.mode)
+                {
+                    case 0:
+                        switch(value.exp)
+                        {
+                            case '1':
+                                tag = '滚动';
+                                break;
+                            case '4':
+                                tag = '底部';
+                                break;
+                            case '5':
+                                tag = '顶部';
+                                break;
+                            case '7':
+                                tag = 'B弹幕';
+                                break;
+                            case '9':
+                                tag = 'ZOOME';
+                                break;
+                            case '10':
+                                tag = '脚本弹幕';
+                                break;
+                            default:
+                                tag = '无名模式,或许有效';
+                                break;
+                        }
+                        break;
+                    case 1:
+                        color = parseInt(value.exp,16);
+                        tag = '';
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+        ]]>
+    </fx:Script>
+    <s:Rect x="3" y="2" width="12" height="12" visible="{data.mode == 1}">
+        <s:fill>
+            <s:SolidColor color="{color}" />
+        </s:fill>
+        <s:stroke>
+            <s:SolidColorStroke color="0x000000" weight="1" />
+        </s:stroke>
+    </s:Rect>
+    <s:Label id="lblData" top="3" left="2" right="0" bottom="0" text="{tag}"/>
+</s:MXDataGridItemRenderer>

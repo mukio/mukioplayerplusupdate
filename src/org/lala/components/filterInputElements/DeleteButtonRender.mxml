@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                          xmlns:s="library://ns.adobe.com/flex/spark" 
+                          xmlns:mx="library://ns.adobe.com/flex/mx" 
+                          focusEnabled="true">
+    <fx:Script>
+        <![CDATA[
+            import org.lala.utils.CommentFilter;
+            protected function closeButton_clickHandler(event:MouseEvent):void
+            {
+                CommentFilter.getInstance().deleteItem(data.id);
+                CommentFilter.getInstance().savetoSharedObject();
+            }
+        ]]>
+    </fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hover"/>
+		<s:State name="press"/>
+	</s:states>
+	
+    <s:Group id="closeButton" right="2" top="2" buttonMode="true"
+			 click="closeButton_clickHandler(event)" mouseOver="currentState='hover';" mouseOut="currentState='normal';" mouseDownOutside="currentState='press';">
+        <s:Rect x="0" y="0" width="12" height="12"  includeIn="hover" >
+            <s:fill>
+				<s:SolidColor color="0x0099FF" />
+            </s:fill>
+        </s:Rect>
+		<s:Rect x="0" y="0" width="12" height="12"  includeIn="press">
+			<s:fill>
+				<s:SolidColor color="0x000000" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="0" width="12" height="12"  includeIn="normal">
+			<s:fill>
+				<s:SolidColor color="0xAA0808" />
+			</s:fill>
+		</s:Rect>
+        <s:Label text="x" fontSize="12" fontFamily="Arial" color="0xffffff" x="3" y="0" />
+    </s:Group>
+</s:MXDataGridItemRenderer>

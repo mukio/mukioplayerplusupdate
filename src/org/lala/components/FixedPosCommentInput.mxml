@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                   xmlns:s="library://ns.adobe.com/flex/spark" 
+                   xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="247" borderWeight="0" borderVisible="false" resize="group1_resizeHandler(event)" currentState="E" height.E="500">
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        .FormItem
+        {
+            height:20px;
+        }
+    </fx:Style>
+    <s:states>
+        <s:State name="A" stateGroups="constrain"/>
+        <s:State name="B" stateGroups="full"/>
+        
+        <s:State name="C" stateGroups="normal"/>
+        <s:State name="D" stateGroups="cover"/>
+        
+        <s:State name="E" stateGroups="constrain,normal"/>
+        <s:State name="F" stateGroups="constrain,cover"/>
+        <s:State name="G" stateGroups="full,normal"/>
+        <s:State name="H" stateGroups="full,cover"/>
+    </s:states>
+    <s:transitions>
+        <s:Transition autoReverse="true">
+            <s:Parallel duration="300">
+                <s:Fade target="{grid}"/>
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
+    <fx:Declarations>
+        <!-- 又称BiliBiliCommentInput -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.events.ResizeEvent;
+            
+            import org.lala.event.EventBus;
+            import org.lala.event.MukioEvent;
+            [Bindable]
+            private var x0:int=0;
+            [Bindable]
+            private var y0:int=0;
+            [Bindable]
+            private var sizeArr:ArrayCollection=new ArrayCollection([
+                {label:'正常',data:25},
+                {label:'大',data:37},
+                {label:'小',data:15}
+            ]);
+            protected function group1_resizeHandler(event:ResizeEvent):void
+            {
+                var p:Point = new Point(0,0);
+                p = globalToLocal(p);
+                x0 = p.x;
+                y0 = p.y;
+                
+            }
+            protected function grid_clickHandler(event:MouseEvent):void
+            {
+                if(posBt.selected)
+                {
+                    posBt.selected = false;
+                }
+                else if(postoBt.selected)
+                {
+                    postoBt.selected = false;
+                }
+                toNormal();
+            }
+            
+            private function toFull():void
+            {
+                if(currentState == 'F')
+                {
+                    currentState = 'H';
+                }
+                else if(currentState == 'E')
+                {
+                    currentState = 'G';
+                }                
+            }
+            
+            private function toConstrain():void
+            {
+                if(currentState == 'H')
+                {
+                    currentState = 'F';
+                }
+                else if(currentState == 'G')
+                {
+                    currentState = 'E';
+                }                
+            }        
+            private function toCover():void
+            {
+                if(currentState == 'E')
+                {
+                    currentState = 'F';
+                }
+                else if(currentState == 'G')
+                {
+                    currentState = 'H';
+                }            
+            }            
+            private function toNormal():void
+            {
+                if(currentState == 'F')
+                {
+                    currentState = 'E';
+                }
+                else if(currentState == 'H')
+                {
+                    currentState = 'G';
+                }        
+            }
+            protected function grid_mouseMoveHandler(event:MouseEvent):void
+            {
+                if(posBt.selected)
+                {
+                    xpos.value = event.localX;
+                    ypos.value = event.localY;
+                }
+                else if(postoBt.selected)
+                {
+                    xposto.value = event.localX;
+                    yposto.value = event.localY;
+                }
+            }
+            
+            private function data():Object
+            {
+                var data:Object = {};
+                data.type = 'bili';
+                data.mode = 7;
+                data.text = commentIpt.text;
+                data.size = sizeCb.selectedItem.data;
+                data.color = colorCpk.selectedColor;
+                data.x = xpos.value;
+                data.y = ypos.value;
+                data.rZ = rzNs.value;
+                data.rY = ryNs.value;
+                data.duration = durationNs.value;
+                data.inAlpha = alphaInNs.value;
+                data.outAlpha = alphaOutNs.value;
+                if(constrainBt.selected)
+                {
+                    data.adv = false;
+                }
+                else
+                {
+                    data.adv = true;
+                    data.toX = xposto.value;
+                    data.toY = yposto.value;
+                    data.mDuration = mDurationNs.value / 1000;
+                    data.delay = delayNs.value / 1000;
+                }      
+                return data;
+            }
+            protected function sendBt_clickHandler(event:MouseEvent):void
+            {
+                if(commentIpt.text == '')
+                {
+                    return;
+                }
+                EventBus.getInstance().sendMukioEvent(MukioEvent.DISPLAY,data());
+                commentIpt.text = '';
+            }
+
+            protected function previewBt_clickHandler(event:MouseEvent):void
+            {
+                if(commentIpt.text == '')
+                {
+                    return;
+                } 
+                var newdata:Object = data();
+                newdata.preview = true;
+                EventBus.getInstance().sendMukioEvent(MukioEvent.DISPLAY,newdata);
+            }
+
+        ]]>
+    </fx:Script>
+    <mx:Form x="0" y="0" width="300" height="100%" borderVisible="true" dropShadowVisible="false"
+			 indicatorGap="3" verticalGap="2">
+        <mx:FormItem label="工作模式" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10" backgroundColor="0xDDDDDD"/>
+                <s:RadioButton id="constrainBt" label="限制" groupName="mode" selected="true" change="toConstrain()" toolTip="减少一点数据量" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
+                <s:RadioButton label="全开" groupName="mode" change="toFull()" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="大小和颜色" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:DropDownList id="sizeCb" dataProvider="{sizeArr}" labelField="label" selectedIndex="0" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>
+                <mx:ColorPicker id="colorCpk" selectedColor="0xffffff"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="内容">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:TextArea id="commentIpt" width="172" height="40" maxChars="255" borderColor="0xDDDDDD"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="衰弱透明度" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:NumericStepper id="alphaInNs" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:Label text="~"  width="10"/>
+                <s:NumericStepper id="alphaOutNs" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="生存时间" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:NumericStepper id="durationNs" minimum="0.0" maximum="10.0" stepSize="0.1" snapInterval="0.1" value="4.5" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="位置" label.full="起始点" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text="x"  width="10"/>
+                <s:NumericStepper id="xpos" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:Label text="y"  width="10"/>
+                <s:NumericStepper id="ypos" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:ToggleButton id="posBt" height="100%" label="拾取"
+								change="postoBt.selected=false;!posBt.selected?toNormal():toCover();"
+								width="45" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="偏斜" styleName="FormItem" paddingTop="2" width="100%" height="22">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text="Z"  width="10"/>
+                <s:NumericStepper id="rzNs" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:Label text="Y"  width="10"/>
+                <s:NumericStepper id="ryNs" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="目标点" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text="x"  width="10"/>
+                <s:NumericStepper id="xposto" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:Label text="y"  width="10"/>
+                <s:NumericStepper id="yposto" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:ToggleButton id="postoBt" height="100%" label="拾取"
+								change="posBt.selected=false;!postoBt.selected?toNormal():toCover();"
+								width="45" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="移动耗时" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:NumericStepper id="mDurationNs" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="500" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="开始暂停" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:NumericStepper id="delayNs" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="" styleName="FormItem" paddingTop="2" width="100%">
+            <s:HGroup verticalAlign="middle">
+                <s:Label text=""  width="10"/>
+                <s:Button id="previewBt" label="查看效果" click="previewBt_clickHandler(event)" skinClass="org.lala.components.skins.SparkButtonSkin"/>
+                <s:Button id="sendBt" label="发送" click="sendBt_clickHandler(event)" skinClass="org.lala.components.skins.SparkButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+    </mx:Form>
+    <s:Group id="grid" buttonMode="true" width="540" height="416" x="{x0}" y="{y0}" visible="false" visible.cover="true" click="grid_clickHandler(event)" mouseMove="grid_mouseMoveHandler(event)">
+        <s:Rect x="0" y="0" width="100%" height="100%" alpha="0.2">
+            <s:fill>
+                <s:SolidColor color="0x6babd4" />
+            </s:fill>
+        </s:Rect>
+        <s:Path x="0" y="0" data="M0 0L0 400M10 0L10 400M20 0L20 400M30 0L30 400M40 0L40 400M50 0L50 400M60 0L60 400M70 0L70 400M80 0L80 400M90 0L90 400M100 0L100 400M110 0L110 400M120 0L120 400M130 0L130 400M140 0L140 400M150 0L150 400M160 0L160 400M170 0L170 400M180 0L180 400M190 0L190 400M200 0L200 400M210 0L210 400M220 0L220 400M230 0L230 400M240 0L240 400M250 0L250 400M260 0L260 400M270 0L270 400M280 0L280 400M290 0L290 400M300 0L300 400M310 0L310 400M320 0L320 400M330 0L330 400M340 0L340 400M350 0L350 400M360 0L360 400M370 0L370 400M380 0L380 400M390 0L390 400M400 0L400 400M410 0L410 400M420 0L420 400M430 0L430 400M440 0L440 400M450 0L450 400M460 0L460 400M470 0L470 400M480 0L480 400M490 0L490 400M500 0L500 400M510 0L510 400M520 0L520 400M530 0L530 400M540 0L540 400M0 0L540 0M0 10L540 10M0 20L540 20M0 30L540 30M0 40L540 40M0 50L540 50M0 60L540 60M0 70L540 70M0 80L540 80M0 90L540 90M0 100L540 100M0 110L540 110M0 120L540 120M0 130L540 130M0 140L540 140M0 150L540 150M0 160L540 160M0 170L540 170M0 180L540 180M0 190L540 190M0 200L540 200M0 210L540 210M0 220L540 220M0 230L540 230M0 240L540 240M0 250L540 250M0 260L540 260M0 270L540 270M0 280L540 280M0 290L540 290M0 300L540 300M0 310L540 310M0 320L540 320M0 330L540 330M0 340L540 340M0 350L540 350M0 360L540 360M0 370L540 370M0 380L540 380M0 390L540 390M0 400L540 400">
+            <s:stroke>
+                <s:SolidColorStroke color="0" weight="1" />
+            </s:stroke>
+        </s:Path>
+        <s:Path x="0" y="0" data="M0 0L0 400M50 0L50 400M100 0L100 400M150 0L150 400M200 0L200 400M250 0L250 400M300 0L300 400M350 0L350 400M400 0L400 400M450 0L450 400M500 0L500 400M0 0L540 0M0 50L540 50M0 100L540 100M0 150L540 150M0 200L540 200M0 250L540 250M0 300L540 300M0 350L540 350M0 400L540 400">
+            <s:stroke>
+                <s:SolidColorStroke color="0x00ff00" weight="1" />
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+</s:BorderContainer>

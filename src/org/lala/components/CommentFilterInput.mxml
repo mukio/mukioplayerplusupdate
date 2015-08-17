@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mk="org.lala.components.*"
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+    <s:layout>
+        <s:VerticalLayout paddingLeft="2"/>
+    </s:layout>
+    <fx:Declarations>
+        <!-- 过滤器设置 -->
+			<fx:Array id="filterColumns">
+				<mx:DataGridColumn headerText="删" dataField="" itemRenderer="org.lala.components.filterInputElements.DeleteButtonRender" width="20"/>
+				<mx:DataGridColumn headerText="过滤类别" dataField="mode" labelFunction="modeLabel"/>
+				<mx:DataGridColumn headerText="关键词" dataField="exp" itemRenderer="org.lala.components.filterInputElements.ColorFieldRender"/>
+				<mx:DataGridColumn headerText="状态" dataField="enable" itemRenderer="org.lala.components.filterInputElements.EnableFieldRender"/>
+			</fx:Array>
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import org.lala.utils.CommentFilter;
+            
+            [Bindable]
+            private var filter:CommentFilter = CommentFilter.getInstance();
+
+            protected function addBt_clickHandler(event:Event):void
+            {
+                filter.addItem(input.text);
+                filter.savetoSharedObject();
+                input.text = "";
+            }
+            private function modeLabel(item:Object, column:DataGridColumn):String
+            {
+                switch(item['mode']){
+                    case 0:
+                        return "模式";
+                    case 1:
+                        return "颜色";
+                    case 2:
+                        return "文本";
+                }
+                return "未知";
+            }
+
+        ]]>
+    </fx:Script>
+    <s:HGroup horizontalAlign="center" gap="2" height="22">
+        <s:CheckBox id="enableCb" x="6" width="46" height="100%" label="启用"
+					change="filter.bEnable=enableCb.selected;filter.savetoSharedObject();"
+					selected="{filter.bEnable}"
+					skinClass="org.lala.components.skins.SparkCheckBoxSkin"/>
+        <s:CheckBox id="regCb" x="65" width="106" height="100%" label="使用正则表达式"
+					change="filter.bRegEnable=regCb.selected;filter.savetoSharedObject();"
+					selected="{filter.bRegEnable}"
+					skinClass="org.lala.components.skins.SparkCheckBoxSkin"/>
+        <s:CheckBox id="whilteListCb" x="163" width="86" height="100%" label="白名单模式"
+					change="filter.bWhiteList=whilteListCb.selected;filter.savetoSharedObject();"
+					selected="{filter.bWhiteList}"
+					skinClass="org.lala.components.skins.SparkCheckBoxSkin"/>
+    </s:HGroup>
+    <s:HGroup width="100%">
+        <s:TextInput id="input"  borderColor="0xDDDDDD" width="100%" enter="addBt_clickHandler(event)">
+            <s:toolTip>普通表达式
+模式表达式:m=[模式号](m=4)
+颜色表达式:c=[颜色十六进制文本](c=ff0000)</s:toolTip>
+        </s:TextInput><s:Button id="addBt" label="添加" width="50" right="5" click="addBt_clickHandler(event);" skinClass="org.lala.components.skins.SparkButtonSkin"/>
+    </s:HGroup>
+    <mk:CmtDataGrid width="100%" styleName="cmtDataGridStyle" verticalScrollBarStyleName="cmtSBS"  headerStyleName="boldStyle"  headerSeparatorSkin="org.lala.components.skins.DataGridHeaderSeparator" headerBackgroundSkin="org.lala.components.DataGridHeaderSkin" borderColor="0xCCCCCC" height="100%" bottom="0" dataProvider="{filter.filterSource}"  columns="{filterColumns}"  />
+</s:Group>

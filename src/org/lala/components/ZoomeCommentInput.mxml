@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mk="org.lala.components.*" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:zoomeInputElements="org.lala.components.zoomeInputElements.*" resize="group1_resizeHandler(event)">
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="cover"/>
+    </s:states>
+    <s:transitions>
+        <s:Transition autoReverse="true">
+            <s:Parallel duration="300">
+                <s:Fade target="{grid}"/>
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
+    <fx:Declarations>
+        <!-- zoome弹幕输入界面 -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.events.ResizeEvent;
+            
+            import org.lala.event.EventBus;
+            import org.lala.event.MukioEvent;
+            [Bindable]
+            private var styleArr:ArrayCollection=new ArrayCollection([
+                {label:'普通',data:'normal'},
+                {label:'大喊',data:'loud'},
+                {label:'思考',data:'think'}
+                /*{label:'底端字幕',data:'subtitle'}*/
+            ]);
+            [Bindable]
+            private var sizeArr:ArrayCollection=new ArrayCollection([
+                {label:'正常',data:25},
+                {label:'大',data:37},
+                {label:'小',data:15}
+            ]);
+            [Bindable]
+            private var inEffectArr:ArrayCollection=new ArrayCollection([
+                {label:'无',data:'normal'},
+                {label:'随机',data:'random'},
+                {label:'渐显',data:'fade'},
+                {label:'飞行',data:'fly'},
+            ]);
+            [Bindable]
+            private var outEffectArr:ArrayCollection=new ArrayCollection([
+                {label:'无',data:'normal'},
+                {label:'随机',data:'random'},
+                {label:'渐隐',data:'fade'},
+                {label:'飞行',data:'fly'},
+            ]);
+            
+            [Bindable]
+            private var x0:int=0;
+            [Bindable]
+            private var y0:int=0;
+
+            protected function positionBt_clickHandler(event:MouseEvent):void
+            {
+                currentState = positionBt.selected ? "cover" : "normal";
+            }
+            
+            protected function group1_resizeHandler(event:ResizeEvent):void
+            {
+                var p:Point = new Point(0,0);
+                p = globalToLocal(p);
+                x0 = p.x;
+                y0 = p.y;
+                positionBt.selected = false;
+                currentState = "normal";
+            }
+            
+            protected function grid_clickHandler(event:MouseEvent):void
+            {
+                positionBt.selected = false;
+                currentState = "normal";
+            }
+            
+            protected function grid_mouseMoveHandler(event:MouseEvent):void
+            {
+                xpos.value = event.localX;
+                ypos.value = event.localY;
+            }
+            
+            
+            protected function sendBt_clickHandler(event:MouseEvent):void
+            {
+                if(commentIpt.text == "")
+                {
+                    return;
+                }
+                var data:Object = {};
+                data.type ='zoome';
+                data.mode = 9;
+                data.text = text;
+                data.size = size;
+                data.tStyle = tStyle;
+                data.color = color;
+                data.x = xpos.value;
+                data.y = ypos.value;
+                data.alpha = opacity;
+                data.style = style;
+                data.duration = duration;
+                data.inStyle = inStyle;
+                data.outStyle = outStyle;
+                data.position = position;
+                data.tEffect = tEffect;
+                
+                EventBus.getInstance().sendMukioEvent(MukioEvent.DISPLAY,data);
+                commentIpt.text = ""; 
+            }
+            
+            public function get text():String
+            {
+                return commentIpt.text;
+            }
+            
+            public function get size():int
+            {
+                return sizeCb.selectedItem.data;
+            }
+            
+            public function get color():int
+            {
+                return colorCpk.selectedColor;
+            }
+            
+            public function get opacity():Number
+            {
+                return opacitySld.value;
+            }
+            
+            public function get duration():int
+            {
+                return durationSld.value;
+            }
+            
+            public function get style():String
+            {
+                return styleCb.selectedItem.data;
+            }
+            
+            public function get tEffect():String
+            {
+                if (lupinCkb.selected)
+                    return 'lupin';
+                
+                return '';
+            }
+            
+            public function get tStyle():String
+            {
+                var res:Array = [];
+                
+                if (boldBt.selected)
+                    res.push('bold');
+                
+                if (italicBt.selected)
+                    res.push('italic');
+                
+                if (underlineBt.selected)
+                    res.push('underline');
+                
+                return res.join(' ');
+            }
+            
+            public function get inStyle():String
+            {
+                if (inEffectCb.selectedItem.data != 'fly')
+                    return inEffectCb.selectedItem.data;
+                
+                if (inEffectSld.value % 90 == 0)
+                {
+                    var posArr:Array = ['left','drop','right','rise'];
+                    return posArr[Math.floor(inEffectSld.value / 90) % 4];
+                }
+                
+                return inEffectSld.value.toString();
+            }
+            
+            public function get outStyle():String
+            {
+                if (outEffectCb.selectedItem.data != 'fly')
+                    return  outEffectCb.selectedItem.data;
+                
+                if (outEffectSld.value % 90 == 0)
+                {
+                    var posArr:Array = ['right','rise','left','drop'];
+                    return posArr[Math.floor(outEffectSld.value / 90) % 4];
+                }
+                
+                return outEffectSld.value.toString();
+            }
+            
+            public function get position():String
+            {
+                if (style == 'subtitle')
+                    return 'bottom';
+                
+                return '';
+            }
+
+        ]]>
+    </fx:Script>
+    <mx:Form verticalGap="2">
+        <mx:FormItem label="气泡风格">
+            <s:DropDownList id="styleCb" dataProvider="{styleArr}" selectedIndex="0" labelField="label" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>
+        </mx:FormItem>
+        <mx:FormItem label="位置">
+            <s:HGroup gap="2" verticalAlign="middle" height="20">
+                <s:Label text="X:" width="100%"/>
+                <s:NumericStepper id="xpos" height="100%" maximum="540" minimum="0"
+								  width="53"/>
+                <s:Label text="Y:" width="100%"/>
+                <s:NumericStepper id="ypos" width="53" maximum="432" minimum="0" height="100%" />
+                <s:ToggleButton id="positionBt" label="拾取" width="50" click="positionBt_clickHandler(event)" toolTip="在弹出的网格上点一下" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="内容">
+            <s:TextArea id="commentIpt" width="186" height="40" borderColor="0xDDDDDD" maxChars="255"/>
+        </mx:FormItem>
+        <mx:FormItem label="命令">
+            <s:HGroup gap="1">
+                <s:TextInput id="commandIpt" width="134" height="20" borderColor="0xDDDDDD"
+							 editable="false" text="请使用脚本弹幕功能"/>
+                <s:Button id="sendBt" label="发送" width="50" height="20" click="sendBt_clickHandler(event)"  skinClass="org.lala.components.skins.SparkButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="颜色">
+            <mx:ColorPicker id="colorCpk" />
+        </mx:FormItem>
+        <mx:FormItem label="字号">
+            <s:DropDownList id="sizeCb" dataProvider="{sizeArr}" labelField="label" selectedIndex="0"
+							skinClass="org.lala.components.skins.SparkDropDownListSkin"
+							width="93"/>
+        </mx:FormItem>
+        <mx:FormItem label="文字格式">
+            <s:HGroup gap="1">
+                <s:ToggleButton id="boldBt" label="B" width="30" height="20" styleName="boldBtStyle" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+                <s:ToggleButton id="italicBt" label="I" width="30" height="20" styleName="italicBtStyle" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+                <s:ToggleButton id="underlineBt" label="U" width="30" height="20" styleName="underlineBtStyle" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="背景透明度">
+            <mx:toolTip>0:完全透明
+100:不透明
+建议设置在80以下</mx:toolTip>
+            <s:HGroup>
+                <mk:HSlider id="opacitySld" maximum="100" minimum="0" snapInterval="10" value="40"  height="14" width="100" liveDragging="true"  skinClass="org.lala.components.skins.HSliderSkin"/>
+                <s:Label id="opacityLb" text="{opacitySld.value}"/>
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="停留时间">
+            <s:HGroup>
+                <mk:HSlider id="durationSld" maximum="8000" minimum="0" snapInterval="500" value="1000" height="14" width="100" liveDragging="true"   skinClass="org.lala.components.skins.HSliderSkin"/>
+                <s:Label id="durationLb" text="{durationSld.value}毫秒" />
+            </s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="进场效果">
+            <s:HGroup>
+                <s:DropDownList id="inEffectCb" labelField="label" dataProvider="{inEffectArr}" selectedIndex="0" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>
+           </s:HGroup>
+			<s:HGroup>
+				<mk:HSlider id="inEffectSld" maximum="360" minimum="0" snapInterval="15" value="0" width="100" height="14" liveDragging="true" enabled="{inEffectCb.selectedIndex==3}"   skinClass="org.lala.components.skins.HSliderSkin"/>
+				<s:Label id="inEffectLb" text="{inEffectSld.value}"/>
+			</s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="退场效果">
+            <s:HGroup>
+                <s:DropDownList id="outEffectCb" labelField="label" dataProvider="{outEffectArr}" selectedIndex="0" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>
+            </s:HGroup>
+			<s:HGroup>
+				<mk:HSlider id="outEffectSld" maximum="360" minimum="0" snapInterval="15" value="0" width="100" height="14" liveDragging="true" enabled="{outEffectCb.selectedIndex==3}"  skinClass="org.lala.components.skins.HSliderSkin"/>
+				<s:Label id="outEffectLb" text="{outEffectSld.value}"/>
+			</s:HGroup>
+        </mx:FormItem>
+        <mx:FormItem label="打字效果">
+            <s:CheckBox id="lupinCkb"  skinClass="org.lala.components.skins.SparkCheckBoxSkin"/>
+        </mx:FormItem>
+    </mx:Form>
+    <zoomeInputElements:Compass alpha="0" width="100" height="100" x="240" y="120" inIdt="{inEffectSld.value}" outIdt="{outEffectSld.value}" inVisible="{inEffectCb.selectedIndex==3}" outVisible="{outEffectCb.selectedIndex==3}"/>
+    <s:Group id="grid" buttonMode="true" width="540" height="416" x="{x0}" y="{y0}" visible="false" visible.cover="true" click="grid_clickHandler(event)" mouseMove="grid_mouseMoveHandler(event)">
+        <s:Rect x="0" y="0" width="100%" height="100%" alpha="0.2">
+            <s:fill>
+                <s:SolidColor color="0x6babd4" />
+            </s:fill>
+        </s:Rect>
+        <s:Path x="0" y="0" data="M0 0L0 400M10 0L10 400M20 0L20 400M30 0L30 400M40 0L40 400M50 0L50 400M60 0L60 400M70 0L70 400M80 0L80 400M90 0L90 400M100 0L100 400M110 0L110 400M120 0L120 400M130 0L130 400M140 0L140 400M150 0L150 400M160 0L160 400M170 0L170 400M180 0L180 400M190 0L190 400M200 0L200 400M210 0L210 400M220 0L220 400M230 0L230 400M240 0L240 400M250 0L250 400M260 0L260 400M270 0L270 400M280 0L280 400M290 0L290 400M300 0L300 400M310 0L310 400M320 0L320 400M330 0L330 400M340 0L340 400M350 0L350 400M360 0L360 400M370 0L370 400M380 0L380 400M390 0L390 400M400 0L400 400M410 0L410 400M420 0L420 400M430 0L430 400M440 0L440 400M450 0L450 400M460 0L460 400M470 0L470 400M480 0L480 400M490 0L490 400M500 0L500 400M510 0L510 400M520 0L520 400M530 0L530 400M540 0L540 400M0 0L540 0M0 10L540 10M0 20L540 20M0 30L540 30M0 40L540 40M0 50L540 50M0 60L540 60M0 70L540 70M0 80L540 80M0 90L540 90M0 100L540 100M0 110L540 110M0 120L540 120M0 130L540 130M0 140L540 140M0 150L540 150M0 160L540 160M0 170L540 170M0 180L540 180M0 190L540 190M0 200L540 200M0 210L540 210M0 220L540 220M0 230L540 230M0 240L540 240M0 250L540 250M0 260L540 260M0 270L540 270M0 280L540 280M0 290L540 290M0 300L540 300M0 310L540 310M0 320L540 320M0 330L540 330M0 340L540 340M0 350L540 350M0 360L540 360M0 370L540 370M0 380L540 380M0 390L540 390M0 400L540 400">
+            <s:stroke>
+                <s:SolidColorStroke color="0" weight="1" />
+            </s:stroke>
+        </s:Path>
+        <s:Path x="0" y="0" data="M0 0L0 400M50 0L50 400M100 0L100 400M150 0L150 400M200 0L200 400M250 0L250 400M300 0L300 400M350 0L350 400M400 0L400 400M450 0L450 400M500 0L500 400M0 0L540 0M0 50L540 50M0 100L540 100M0 150L540 150M0 200L540 200M0 250L540 250M0 300L540 300M0 350L540 350M0 400L540 400">
+            <s:stroke>
+                <s:SolidColorStroke color="0xff0000" weight="1" />
+            </s:stroke>
+        </s:Path>
+        <!--
+        路径生成代码,javascript,放在firebug控制台上运行
+        x=0
+        i=0
+        step=5
+        str=''
+        while(x<=540){
+        str += 'M'+x+' 0'+'L'+x +' 400';
+        i+=step
+        x = i*10
+        }
+        x=0
+        i=0
+        while(x<=400){
+        str += 'M0 '+x+'L540 '+x;
+        i+=step
+        x = i*10
+        }
+        str
+        -->
+    </s:Group>
+</s:Group>

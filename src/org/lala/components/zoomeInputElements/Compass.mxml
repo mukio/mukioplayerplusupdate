@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="100" height="100" xmlns:zoomeInputElements="org.lala.components.zoomeInputElements.*">
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+    <fx:Declarations>
+        <!-- 将非可视元素（例如服务、值对象）放在此处 -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            public var inIdt:Number;
+            [Bindable]
+            public var outIdt:Number;
+            [Bindable]
+            public var inVisible:Boolean;
+            [Bindable]
+            public var outVisible:Boolean;
+        ]]>
+    </fx:Script>
+    <s:Rect width="80" height="60" x="10" y="20" >
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:entries>
+                    <s:GradientEntry color="0" alpha="1" ratio="0" />
+                    <s:GradientEntry color="0" alpha="0.5" ratio="1" />
+                </s:entries>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    <zoomeInputElements:CompassPointer x="50" y="50" width="50" height="50" rotation="{-inIdt-45}" visible="{inVisible}"/>
+    <zoomeInputElements:CompassPointer x="50" y="50" width="50" height="50" rotation="{-outIdt-45}" isIn="false" visible="{outVisible}"/>
+    <s:filters>
+        <s:DropShadowFilter distance="2" angle="45" color="0x000000" alpha="0.6" />
+    </s:filters>
+</s:Group>

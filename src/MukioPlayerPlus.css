@@ -1,0 +1,63 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+.boldBtStyle
+{
+    font-weight:bold;
+}
+.cmtDataGridStyle
+{
+	verticalGridLines: false;
+	horizontalGridLineColor:"0xDDDDDD";
+}
+.cmtSBS{
+	downArrowSkin:ClassReference("org.lala.components.skins.ScrollArrowSkin");
+	upArrowSkin:ClassReference("org.lala.components.skins.ScrollArrowSkin");
+	thumbSkin:ClassReference("org.lala.components.skins.ScrollThumbSkin");
+	trackSkin:ClassReference("org.lala.components.skins.ScrollTrackSkin");
+}
+
+.italicBtStyle
+{
+    font-style:italic;
+}
+.underlineBtStyle
+{
+    text-decoration:underline;
+}
+global
+{
+    font-family: '微软雅黑','simsun','_sans';
+}
+mx|ToolTip
+{
+    backgroundColor: white;
+    backgroundAlpha: 0.85;
+    cornerRadius: 0;
+    color: black;
+    font-size:12px;
+	
+}
+.boldStyle
+{
+    fontWeight:bold;
+}
+
+.customAccordionHeadStyles {
+	skin: ClassReference("org.lala.components.skins.AccordionHeaderSkin");
+	fontWeight:bold;
+} 
+
+.tabBar{
+	skin: ClassReference("org.lala.components.skins.TabSkin");
+	up-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	down-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	over-skin:ClassReference("org.lala.components.skins.TabSkin");
+	disabled-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	selected-up-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	selected-down-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	selected-over-skin:ClassReference("org.lala.components.skins.TabSkin");	
+	selected-disabled-skin:ClassReference("org.lala.components.skins.TabSkin");
+	fontWeight:bold;
+}

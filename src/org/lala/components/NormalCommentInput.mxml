@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         xmlns:mk="org.lala.components.*"
+         width="100%" height="100%">
+    <s:layout>
+        <s:HorizontalLayout gap="1" verticalAlign="middle"/>
+    </s:layout>
+    <fx:Declarations>
+        <!-- 普通弹幕输入界面 -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import org.lala.components.skins.IconButtonSkin;
+            import org.lala.event.EventBus;
+            import org.lala.event.MukioEvent;
+            
+            protected function sendButton_clickHandler(event:*):void
+            {
+                if(textInput.text == "")
+                {
+                    return;
+                }
+                var data:Object={};
+                data.type = 'normal';
+                data.text = textInput.text;
+                data.color = colorPicker.selectedColor;
+                data.size = styleChooser.stylePanel.size;
+                data.mode = styleChooser.stylePanel.mode;
+                
+                EventBus.getInstance().sendMukioEvent(MukioEvent.DISPLAY,data);
+                textInput.text = "";
+            }
+        ]]>
+    </fx:Script>
+    <mk:CommentStyleChooser id="styleChooser" />
+    <mx:ColorPicker id="colorPicker" selectedColor="{styleChooser.stylePanel.color}" />
+    <s:TextInput id="textInput" width="100%" height="100%"  borderColor="0xDDDDDD" enter="sendButton_clickHandler(event)"
+				 prompt="装填弹药吧！"/>
+	<s:Button id="sendButton2" width="60" height="100%" click="sendButton_clickHandler(event)" skinClass="org.lala.components.skins.SendButtonSkin"/>
+</s:Group>

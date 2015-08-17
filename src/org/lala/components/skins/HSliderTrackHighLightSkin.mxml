@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the track of a Spark HSlider component.  
+
+@see spark.components.HSlider
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+	
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.Button")]
+		]]>
+	</fx:Metadata> 
+	
+	<fx:Script fb:purpose="styling">
+		[Bindable]
+		private var highlightColor:uint;
+		
+		/**
+		 * @private
+		 */
+		override protected function initializationComplete():void
+		{
+			highlightColor = this.getStyle("themeColor");
+			super.initializationComplete();
+		}
+		
+		override public function styleChanged(styleProp:String):void
+		{
+			super.styleChanged(styleProp);
+			if(styleProp == "themeColor"){
+				var trackHighlightColor:uint = this.getStyle("themeColor");
+				highlightColor = trackHighlightColor;
+			}
+		}
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="up" />
+		<s:State name="down" />
+		<s:State name="over" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<!-- fill -->
+	<s:Rect left="1" right="1" top="4" bottom="4" bottomLeftRadiusX="2" bottomLeftRadiusY="2" topLeftRadiusX="2" topLeftRadiusY="2" bottomRightRadiusX="0" bottomRightRadiusY="0" topRightRadiusX="0" topRightRadiusY="0">
+		<s:fill>
+			<!-- I'm lazy so that I define the color here -->
+			<s:SolidColor color="0x0099FF" alpha="1" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- hit area -->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor alpha="0"/>
+		</s:fill>
+	</s:Rect>
+</s:SparkSkin>

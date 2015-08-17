@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="24" height="22" xmlns:components="org.lala.components.*" addedToStage="group1_addedToStageHandler(event)" removedFromStage="group1_removedFromStageHandler(event)">
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            
+            import org.lala.components.skins.IconButtonSkin;
+            protected function styleButton_clickHandler(event:MouseEvent):void
+            {
+                currentState = currentState == 'normal' ? 'opened' :'normal';
+            }
+
+            protected function stylePanel_closeHandler(event:Event):void
+            {
+                currentState = 'normal'
+            }
+
+            protected function group1_addedToStageHandler(event:Event):void
+            {
+                stage.addEventListener(MouseEvent.CLICK,stageClickHandler);
+            }
+            
+            private function stageClickHandler(evt:MouseEvent):void
+            {
+                if(currentState == 'normal')
+                {
+                    return;
+                }
+                if (!styleButton.hitTestPoint(evt.stageX, evt.stageY) && !stylePanel.hitTestPoint(evt.stageX, evt.stageY))
+                {
+                    currentState = 'normal';
+                }
+            }
+
+            protected function group1_removedFromStageHandler(event:Event):void
+            {
+                stage.removeEventListener(MouseEvent.CLICK,stageClickHandler);
+            }
+
+        ]]>
+    </fx:Script>
+
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="opened"/>
+    </s:states>
+    <s:transitions>
+        <s:Transition fromState="normal" toState="opened" autoReverse="true">
+            <s:Parallel duration="300">
+                <s:Fade target="{stylePanel}"/>
+                <s:Move target="{stylePanel}"/>
+            </s:Parallel>
+        </s:Transition>
+        <s:Transition fromState="opened" toState="normal" autoReverse="true">
+            <s:Parallel duration="300">
+                <s:Fade target="{stylePanel}"/>
+                <s:Move target="{stylePanel}"/>
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
+    <fx:Declarations>
+        <!-- 将非可视元素（例如服务、值对象）放在此处 -->
+    </fx:Declarations>
+    <components:IconButton id="styleButton" label=""  width="24" height="100%" top="0" left="0" click="styleButton_clickHandler(event)" icon="@Embed(source='assets/styleChooserIcon.png')" skinClass="org.lala.components.skins.IconButtonSkin"/>
+    <components:CommentStylePanel  id="stylePanel" bottom="27" left="0" left.normal="{-stylePanel.width}" alpha="0" alpha.opened="1" close="stylePanel_closeHandler(event)"/>
+</s:Group>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="200" creationComplete="group1_creationCompleteHandler(event)" minHeight="200" minWidth="300">
+    <fx:Metadata>
+        [Event(name="playerReady", type="flash.events.Event")]
+    </fx:Metadata>
+    <fx:Declarations>
+        <!-- 将非可视元素（例如服务、值对象）放在此处 -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import mx.utils.ObjectUtil;
+            
+            import org.lala.event.EventBus;
+            
+            private var _player:Player;
+            /** JWPlayer 初始化参数 **/
+            public function get player():Player
+            {
+                return _player;
+            }
+            protected function group1_creationCompleteHandler(event:FlexEvent):void
+            {
+                try
+                {
+                    /** 清除传入参数,将在播放器完成后人工加载视频 **/
+                    var cleanConfigObject:Object = ObjectUtil.copy(systemManager.loaderInfo.parameters);
+                    delete cleanConfigObject['file'];
+                    delete cleanConfigObject['type'];
+                    _player = new Player(playerHolder,cleanConfigObject);
+                    _player.addEventListener("jwplayerReady",playerReadyHandler);
+                    // 为了接收事件,把addToStage方法从构造函数中分离出来
+                    _player.add2Root();
+                }
+                catch(error:Error)
+                {
+                    EventBus.getInstance().log('JWPlayer初始化失败:'+ error.toString());
+                }
+            }
+            private function playerReadyHandler(event:Event):void
+            {
+                dispatchEvent(new Event("playerReady"));
+                // 为了产生第一个ResizeEvent,前面错过一个了
+                playerHolder.top = 0;
+            }
+        ]]>
+    </fx:Script>
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+    <mx:UIComponent id='playerHolder' top="1" bottom="0" left="0" right="0" />
+</s:Group>

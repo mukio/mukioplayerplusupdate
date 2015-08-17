@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mk="org.lala.components.*" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="group1_creationCompleteHandler(event)">
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <fx:Declarations>
+        <!--普通弹幕设置界面-->
+        <s:Panel id="panel" title="配置文本" width="250" height="95">
+            <s:layout>
+                <s:VerticalLayout gap="2" paddingTop="5" paddingRight="5" paddingLeft="5" paddingBottom="5" horizontalAlign="right"/>
+            </s:layout>
+            <s:TextInput id="outputText" width="100%" toolTip="建议使用复制+粘贴" />
+            <s:HGroup>
+                <s:Button id="setFromText" click="config.fromString(outputText.text);PopUpManager.removePopUp(panel);config.save();" label="设置" skinClass="org.lala.components.skins.SparkButtonSkin"/>
+                <s:Button id="closeBt" click="PopUpManager.removePopUp(panel);" right="0" height="22" label="关闭"  skinClass="org.lala.components.skins.SparkButtonSkin"/>
+            </s:HGroup>
+        </s:Panel>
+        <mx:RadioButtonGroup id="QualitySetting"/>
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.events.FlexEvent;
+            import mx.managers.PopUpManager;
+            
+            import org.lala.utils.CommentConfig;
+            
+            [Bindable]
+            private var config:CommentConfig = CommentConfig.getInstance();
+            [Bindable]
+            private var fontNames:ArrayCollection=new ArrayCollection();
+            protected function getText_clickHandler(event:MouseEvent):void
+            {
+                PopUpManager.addPopUp(panel,this,true);
+                PopUpManager.centerPopUp(panel);
+                outputText.text = config.toString();
+                outputText.selectAll();
+                outputText.setFocus();
+            }
+            
+            protected function group1_creationCompleteHandler(event:FlexEvent):void
+            {
+                config.addEventListener('fontChange',fontChnageHandler);
+                for each(var f:Font in Font.enumerateFonts(true))
+                {
+                    fontNames.addItem({'label':f.fontName});
+                    if(f.fontName == config.font)
+                    {
+                        fontLst.selectedIndex = fontNames.length - 1;
+                    }
+                }
+            }
+            
+            private function fontChnageHandler(event:Event):void
+            {
+                for(var i:int = 0; i < fontNames.length; i ++)
+                {
+                    if(fontNames[i].label == config.font)
+                    {
+                        fontLst.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            private function setQuality():void
+            {
+                if(high.selected)config.quality = 3;
+                else if(middle.selected)config.quality = 2;
+                else if(low.selected)config.quality = 1;
+                else config.quality = 2;
+                config.save();
+            }
+            private function getQualitySetting():void
+            {
+                switch(config.quality)
+                {
+                    case 1:
+                        low.selected = true;
+                        break;
+                    case 2:
+                        middle.selected = true;
+                        break;
+                    case 3:
+                        high.selected = true;
+                        break;
+                    default:
+                        middle.selected = true;
+                        break;
+                }
+            }
+        ]]>
+    </fx:Script>
+    <mx:Form width="100%" height="100%">
+        <s:FormItem label="弹幕字体" skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <s:HGroup>
+                <s:DropDownList id="fontLst" dataProvider="{fontNames}" labelField="label" selectedIndex="0" change="config.font=fontLst.selectedItem.label;config.save();" width="160" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>
+            </s:HGroup>
+        </s:FormItem>
+		<s:FormItem label="字体选项" skinClass="org.lala.components.skins.SparkFormItemSkin">
+			<s:HGroup>
+				<s:CheckBox id="boldCb" label="粗体" selected="@{config.bold}" change="config.save();" skinClass="org.lala.components.skins.SparkCheckBoxSkin" />
+				<s:CheckBox id="isChangeUIFontCb" selected="@{config.isChangeUIFont}" label="应用到界面" toolTip="界面也使用相同的字体" change="config.save();" skinClass="org.lala.components.skins.SparkCheckBoxSkin" />
+			</s:HGroup>
+		</s:FormItem>	
+		<s:FormItem label="边框样式"  skinClass="org.lala.components.skins.SparkFormItemSkin"> 
+			<s:DropDownList id="filterLst" dataProvider="{config.filtersArr}" labelField="label" selectedIndex="@{config.filterIndex}" change="config.save();"  width="160" skinClass="org.lala.components.skins.SparkDropDownListSkin"/>        
+        </s:FormItem>
+        <s:FormItem label="弹幕透明"  skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <mk:HSlider id="alphaSld" width="155" change="config.save();" maximum="1"
+						minimum="0" skinClass="org.lala.components.skins.HSliderSkin"
+						snapInterval="0.05" value="@{config.alpha}"/>
+        </s:FormItem>
+        <s:FormItem label="速度调节"  skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <mk:HSlider id="speedeSld" width="155" maximum="2" minimum="0.1" snapInterval="0.1" value="@{config.speede}" change="config.save();"  skinClass="org.lala.components.skins.HSliderSkin"  />
+        </s:FormItem>
+        <s:FormItem label="字号缩放"  skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <mk:HSlider id="sizeeSld" width="155" change="config.save();" maximum="2" minimum="0.1"
+					   skinClass="org.lala.components.skins.HSliderSkin" snapInterval="0.1"
+					   value="@{config.sizee}"/>
+        </s:FormItem>
+        <s:FormItem label="脚本配置"  skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <s:CheckBox id="isPlayerControlApiEnableCb" label="启用播放器控制API" toolTip="影响的行为:Player.play(),pause(),seek()" selected="@{config.isPlayerControlApiEnable}" change="config.save();" skinClass="org.lala.components.skins.SparkCheckBoxSkin"/>
+        </s:FormItem>
+        <s:FormItem alpha="0" width="300" label="画面质量" toolTip="高画质：土豆原画，优酷超清；一般：土豆480P，优酷高清；流畅：土豆360P，优酷Flv。暂不支持新浪。"  skinClass="org.lala.components.skins.SparkFormItemSkin">
+            <s:HGroup>
+                <s:RadioButton label="高画质" groupName="QualitySetting" id="high" click="setQuality();" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
+                <s:RadioButton label="一般" groupName="QualitySetting" id="middle" click="setQuality();" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
+                <s:RadioButton label="流畅" groupName="QualitySetting" id="low" creationComplete="getQualitySetting();" click="setQuality();"  skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
+                <!--还没想好怎么做。-->
+                <s:CheckBox label="断线重连" skinClass="org.lala.components.skins.SparkCheckBoxSkin" />
+            </s:HGroup>
+        </s:FormItem>
+        <s:HGroup horizontalAlign="right">
+            <s:Button id="getText" label="文本界面" click="getText_clickHandler(event)" skinClass="org.lala.components.skins.SparkButtonSkin" />
+            <s:Button label="重置设定" click="config.reset();config.save();"  skinClass="org.lala.components.skins.SparkButtonSkin" />
+        </s:HGroup>
+    </mx:Form>
+</s:Group>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" resize="group1_resizeHandler(event)">
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+    <fx:Declarations>
+        <!-- 将非可视元素（例如服务、值对象）放在此处 -->
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import mx.events.ResizeEvent;
+            
+            import spark.primitives.Graphic;
+            private var _innerR:Number;
+            private var _outterR:Number;
+            private var _angle:Number = 30;
+            
+            [Bindable]
+            public var isIn:Boolean = true;
+            
+            protected function group1_resizeHandler(event:ResizeEvent):void
+            {
+                var a:Number = _angle * Math.PI / 180;
+                var pi45:Number = Math.atan(height/width);
+                var p:Array=[];
+                _innerR = Math.sqrt(width*width + height * height) * 0.15;
+                _outterR = Math.sqrt(width*width + height * height) * 0.3;
+                p.push('M',0,0);
+                p.push('L',_outterR * Math.cos(pi45 - a),_outterR * Math.sin(pi45 - a));
+                p.push('L',_innerR * Math.cos(pi45 - a/2),_innerR * Math.sin(pi45 - a/2));
+                p.push('L',width,height);
+                p.push('L',_innerR * Math.cos(pi45 + a/2),_innerR * Math.sin(pi45 + a/2));
+                p.push('L',_outterR * Math.cos(pi45 + a),_outterR * Math.sin(pi45 + a));
+                p.push('Z');
+                arrow.data = p.join(' ');
+            }
+
+        ]]>
+    </fx:Script>
+    <s:Path id="arrow" data="" width="50" height="50" x="0" y="0" rotation="{isIn?0:180}" transformX="25" transformY="25">
+        <s:fill>
+            <s:LinearGradient rotation="0" >
+                <s:entries>
+                    <s:GradientEntry color="{isIn?0xff0000:0x0000ff}" ratio="0" alpha="1" />                        
+                    <s:GradientEntry color="{isIn?0xffff00:0xff0000}" ratio="1" alpha="1" />                        
+                </s:entries>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Path>
+</s:Group>
+

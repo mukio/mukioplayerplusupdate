@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="250" height="190" xmlns:modePanelElements="org.lala.components.modePanelElements.*">
+    <s:layout>
+        <s:BasicLayout/>
+    </s:layout>
+    <fx:Metadata>
+        [Event(name="close",type="flash.events.Event")]
+    </fx:Metadata>
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.controls.Alert;
+            import mx.events.ItemClickEvent;
+            
+            import org.lala.components.modePanelElements.BigSizeRadioButtonSkin;
+            import org.lala.components.modePanelElements.BottomModeRadioButtonSkin;
+            import org.lala.components.modePanelElements.ColorItemRenderer;
+            import org.lala.components.modePanelElements.MiddleSizeRadioButtonSkin;
+            import org.lala.components.modePanelElements.SmallSizeRadioButtonSkin;
+            import org.lala.components.modePanelElements.ToLeftModeRadioButtonSkin;
+            import org.lala.components.modePanelElements.TopModeRadioButtonSkin;
+            
+            import spark.events.IndexChangeEvent;
+            [Bindable]
+            private var _clrArray:ArrayCollection = new ArrayCollection([ 0xFFFFFF,
+                0xFF0000,
+                0xFF8080,
+                0xFFC000,
+                0xFFFF00,
+                0x00FF00,
+                0x00FFFF,
+                0x0000FF,
+                0xC000FF,
+                0x000000,
+                0xCCCC99,
+                0xCC0033,
+                0xFF33CC,
+                0xFF6600,
+                0x999900,
+                0x00CC66,
+                0x00CCCC,
+                0x3399FF,
+                0x9900FF,
+                0x666666 ]);
+            private var _color:int=0xffffff;
+            private var _size:String='middle';
+            private var _mode:String='toLeft';
+            
+            [Bindable(event = "colorChange")]
+            public function get color():int
+            {
+                return _color;
+            }
+            public function set color(value:int):void
+            {
+                var i:int;
+                var n:int = _clrArray.length;
+                _color = value;
+                dispatchEvent(new Event("colorChange"));
+                for(i = 0; i < n; i++)
+                {
+                    if(_clrArray[i] == value)
+                    {
+                        colorList.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            protected function colorList_changeHandler(event:IndexChangeEvent):void
+            {
+                _color = colorList.selectedItem;
+                dispatchEvent(new Event("colorChange"));
+                
+            }
+
+            [Bindable(event="sizeChange")]
+            public function get size():String
+            {
+                return _size;
+            }
+            
+            public function set size(value:String):void
+            {
+                var i:int;
+                var n:int = sizeButtons.numRadioButtons;
+                _size = value;
+                dispatchEvent(new Event('sizeChange'));
+                for(i = 0; i < n; i++)
+                {
+                    var cbt:RadioButton =  sizeButtons.getRadioButtonAt(i);
+                    if(cbt.value == value)
+                    {
+                        sizeButtons.selection = cbt;
+                        break;
+                    }
+                }
+                
+            }
+            
+            protected function sizeButtons_itemClickHandler(event:ItemClickEvent):void
+            {
+                _size = String(RadioButtonGroup(event.target).selectedValue);
+                dispatchEvent(new Event('sizeChange'));
+            }
+            
+            [Bindable(event="modeChange")]
+            public function get mode():String
+            {
+                return _mode;
+            }
+            
+            public function set mode(value:String):void
+            {
+                var i:int;
+                var n:int = modeButtons.numRadioButtons;
+                _mode = value;
+                dispatchEvent(new Event('modeChange'));
+                for(i = 0; i < n; i++)
+                {
+                    var cbt:RadioButton =  modeButtons.getRadioButtonAt(i);
+                    if(cbt.value == value)
+                    {
+                        modeButtons.selection = cbt;
+                        break;
+                    }
+                }
+                
+            }
+            
+            protected function modeButtons_itemClickHandler(event:ItemClickEvent):void
+            {
+                _mode = String(RadioButtonGroup(event.target).selectedValue);
+                dispatchEvent(new Event('modeChange'));
+            }
+
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:RadioButtonGroup id="sizeButtons" itemClick="sizeButtons_itemClickHandler(event)" />
+        <s:RadioButtonGroup id="modeButtons" itemClick="modeButtons_itemClickHandler(event)"/>
+    </fx:Declarations>
+    <s:Rect width="249" height="189" x="1" y="1">
+        <s:fill>
+            <s:SolidColor color="0xffffff" />
+        </s:fill>
+        <s:stroke>
+            <s:SolidColorStroke color="0x333333" weight="1"  />
+        </s:stroke>
+    </s:Rect>
+    <s:Group x="0" y="0" width="100%" height="100%">
+        <s:Rect x="0" y="0" width="100%" height="18">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:entries>
+                        <s:GradientEntry color="0xffffff" ratio="0" alpha="1" />                        
+                        <s:GradientEntry color="0xffffff" ratio="0.33" alpha="1" />                        
+                        <s:GradientEntry color="0xffffff" ratio="0.66" alpha="1" />                        
+                    </s:entries>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Line x="1" y="18" width="100%" height="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x333333" weight="1" />
+            </s:stroke>
+        </s:Line>
+        <s:Line x="7" y="63" width="230" height="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x999999" weight="1" />
+            </s:stroke>
+        </s:Line>
+        <s:Line x="7" y="112" width="230" height="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x999999" weight="1" />
+            </s:stroke>
+        </s:Line>
+        <s:Line x="7" y="162" width="230" height="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x999999" weight="1" />
+            </s:stroke>
+        </s:Line>
+    </s:Group>
+    <s:Label id="title" text="样式选择:" fontSize="12" color="#000000" x="5" y="4" />
+    <s:Label text="颜色:" fontSize="12" color="0x000000" x="26" y="23" />
+    <s:Label text="大小:" fontSize="12" color="0x000000" x="26" y="73" />
+    <s:Label text="位置:" fontSize="12" color="0x000000" x="26" y="123" />
+    <s:Group x="182" y="169" width="54" height="15" click="this.color=0xffffff;this.size='middle';this.mode='toLeft';" buttonMode="true">
+        <s:Rect x="0" y="0" width="54" height="15">
+            <s:fill>
+                <s:SolidColor color="0xffffff" />
+            </s:fill>
+        </s:Rect>
+        <s:Label text="重置样式" fontSize="12" color="#000000" x="3" y="2" />
+    </s:Group>
+    <s:List id="colorList" x="65" y="24" width="180" itemRenderer="org.lala.components.modePanelElements.ColorItemRenderer" dataProvider="{_clrArray}" borderVisible="false" selectedIndex="0" change="colorList_changeHandler(event)">
+        <s:layout>
+            <s:TileLayout horizontalGap="1" verticalGap="1" requestedRowCount="2" requestedColumnCount="{_clrArray.length / 2}" />
+        </s:layout>
+    </s:List>
+    <s:Group x="59" y="67">
+        <s:layout>
+            <s:HorizontalLayout gap="2" />
+        </s:layout>
+        <s:RadioButton value="middle" groupName="sizeButtons" skinClass="org.lala.components.modePanelElements.MiddleSizeRadioButtonSkin" selected="true" />
+        <s:RadioButton value="small" groupName="sizeButtons" skinClass="org.lala.components.modePanelElements.SmallSizeRadioButtonSkin"/>
+        <s:RadioButton value="big" groupName="sizeButtons" skinClass="org.lala.components.modePanelElements.BigSizeRadioButtonSkin" />
+    </s:Group>
+    <s:Group x="59" y="117">
+        <s:layout>
+            <s:HorizontalLayout gap="2" />
+        </s:layout>
+        <s:RadioButton value="toLeft" groupName="modeButtons" skinClass="org.lala.components.modePanelElements.ToLeftModeRadioButtonSkin" selected="true"/>
+        <s:RadioButton value="top" groupName="modeButtons" skinClass="org.lala.components.modePanelElements.TopModeRadioButtonSkin" />
+        <s:RadioButton value="bottom" groupName="modeButtons" skinClass="org.lala.components.modePanelElements.BottomModeRadioButtonSkin" />
+    </s:Group>
+    <s:Group id="closeButton" top="4" right="2" click="dispatchEvent(new Event('close'));" buttonMode="true">
+        <s:Rect x="0" y="0" width="12" height="12">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" />
+            </s:fill>
+        </s:Rect>
+        <s:Label text="x" fontSize="12" fontFamily="simsun" color="#000000" x="3" y="-2" />
+    </s:Group>
+    <s:filters>
+        <s:DropShadowFilter distance="2" angle="45" color="0x000000" alpha="0.6" />
+    </s:filters>
+</s:Group>
