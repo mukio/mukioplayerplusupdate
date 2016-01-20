@@ -46,7 +46,7 @@ package org.lala.utils
             super(target);
         }
         //SinaMediaProvider测试
-        //player.load({type:'sina',file:'29864957'});
+        //_player.load({type:'youtube',file:'YQHsXMglC9A'});
         //player.load({type:'sina',file:'25550133'});
         //player.load({type:'sina',file:'singleFileTest',videoInfo:{length:0,items:[{url:'E:\\acfun\\badapple.flv',length:0}]}});
         //player.load({type:'sina',file:'singleFileTest',videoInfo:{length:347000,items:[{url:'E:\\acfun\\badapple.flv',length:218000},
@@ -88,6 +88,31 @@ package org.lala.utils
 			_player.load(
 				{   type:'sina',
 					file:'self' + vid //判断到底是什么传入的
+				});
+		}
+		/** 
+		 * 播放Youtube视频
+		 * @param vid 视频的vid
+		 **/
+		public function loadYoutubeVideo(vid:String):void
+		{
+			log("加载视频信息");
+		_player.load(
+				{   type:'youtube',
+					streamer: vid //返回Youtube的视频ID，可以是URL
+				});
+		}
+		/** 
+		 * 播放RTMP直播流
+		 * @param vid 视频的vid
+		 **/
+		public function loadRTMPVideo(vid:String, cid:String ):void
+		{
+			log("加载视频信息");
+			_player.load(
+				{   type:'rtmp',
+					file: cid,
+					streamer: vid //返回Youtube的视频ID，可以是URL
 				});
 		}
         /**

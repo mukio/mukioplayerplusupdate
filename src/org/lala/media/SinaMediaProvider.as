@@ -8,6 +8,7 @@ package org.lala.media
 	import com.longtailvideo.jwplayer.model.PlaylistItem;
 	import com.longtailvideo.jwplayer.player.PlayerState;
 	import com.longtailvideo.jwplayer.utils.Stretcher;
+	import org.lala.event.EventBus;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -149,7 +150,7 @@ package org.lala.media
             
             var info:Object = {'length':parseInt(data.timelength),'items':items};
             
-            if (!info.length)
+            if (!info.items.length)
             {
                 error('视频出错了!');
                 return;
@@ -244,8 +245,8 @@ package org.lala.media
             if(nss[pi+1])
             {
 //                trace("change ns : " + (pi+1));
-                getns(++pi).playV();
-                
+                getns(++pi).seekV(0);
+				getns(pi).playV();
                 video.clear();
                 video.attachNetStream(getns(pi).ns);
                 
@@ -424,6 +425,7 @@ package org.lala.media
             {
                 play();
             }
+			else EventBus.getInstance().sendMukioEvent("PlayStopped", {});
 //            事实上,stop的处理一直是个关键,按照jwplayer的一贯做法是摧毁视频,
 //            如果要再次播放则重新缓冲,这在桌面播放器上是必须的
 //            但是播放单一文件的网络播放器又不能如此,应该把视频存储在flash缓存中,而不是浏览器的缓存中

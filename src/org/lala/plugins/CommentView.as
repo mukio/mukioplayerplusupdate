@@ -244,9 +244,9 @@ package org.lala.plugins
         private function loopButtonHandler(event:Event):void
         {
 			var cb:IControlbarComponent = player.controls.controlbar;
-            if(player.config.repeat != 'list' )
+            if(player.config.repeat != 'single' )
             {
-                player.config.repeat  = 'list';
+                player.config.repeat  = 'single';
                // _loopButtonIcon.alpha = 1;
 				//在ControlBarComponentsV4中设置
             }

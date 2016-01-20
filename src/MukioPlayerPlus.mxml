@@ -27,7 +27,7 @@
 			import com.longtailvideo.jwplayer.player.Player;
 			import com.longtailvideo.jwplayer.utils.Strings;
 			
-			import flash.external.*;
+			import flash.external;
 			
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
@@ -299,7 +299,7 @@
 				//弹幕加载完成
 				//开始加载视频
 				//sina qq youku video tudou 类型在此处处理
-				var typeArray:Array = "sina video self".split(' ');
+				var typeArray:Array = "sina video self youtube rtmp".split(' ');
 				if(typeArray.indexOf(config.type) == -1)
 				{
 					if(config.file)
@@ -323,14 +323,20 @@
 						case 'video':
 							playerTool.loadSingleFile(config.file);
 							break;
+						case 'youtube':
+							playerTool.loadYoutubeVideo(config.vid);
+							break;
+						case 'rtmp':
+							playerTool.loadRTMPVideo(config.vid,config.cid);
+							break;
 						case 'sina':
 							playerTool.loadSinaVideo(config.vid);
 							break;
 						case 'self':
 							playerTool.loadSelfVideo(conf._videoServer.replace(/\{\$id\}/ig,config.vid));
-							
 							break;
-						
+						default:
+							player.load({'type':config.type,'file':config.file});
 					}
 				}
 				//视频加载完毕
