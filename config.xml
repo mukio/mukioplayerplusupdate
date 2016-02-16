@@ -14,14 +14,14 @@
     <!-- 使用mukio播放器的方法处理参数,不用改变 -->
     <onhost>yes</onhost>
     <!-- 弹幕加载地址,变量{$id}为弹幕id -->
-    <load>http://127.0.0.1/get.php?id={$id}</load>
+    <load>load_path_here</load>
     <!-- POST发送地址,如果不提供则不发送,变量可用 -->
-    <send>http://127.0.0.1/post.php</send>
+    <send>post_path_here</send>
     <!-- Amf的POST发送地址,优先gateway -->
     <gateway></gateway>
     <!-- 如果想要实现实时弹幕，请配置好rtmp服务器 -->
-    <rtmp>rtmfp://127.0.0.1/chat</rtmp>
-    <!-- 如果想要解析优酷视频，请配置好php代理地址,变量{$id}为优酷vid -->
-    <videoXML>http://127.0.0.1/test.xml?vid={$id}</videoXML>
+    <rtmp>rtmp_url</rtmp>
+    <!-- 如果想要自己解析视频，请配置好地址,变量{$id}为vid -->
+    <videoXML>video_xml</videoXML>
   </server>
 </conf>
