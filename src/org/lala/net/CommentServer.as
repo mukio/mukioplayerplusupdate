@@ -125,7 +125,7 @@ package org.lala.net
             _postServer = _conf.getCommentPostURL(_cid);
 			if(rtmp != "" && _cid != null)
 			{
-				_fmsDispatcher = new FMSDispatcher(rtmp + '/' + _cid + '/');
+				_fmsDispatcher = new FMSDispatcher(rtmp + '/');
 				_fmsDispatcher.addEventListener("newCmtData", rtmpNewCmtDataHandler);
 			}
         }
@@ -216,7 +216,7 @@ package org.lala.net
 			
 			if(rtmp != "" && _cid != null)
 			{
-				_fmsDispatcher = new FMSDispatcher(rtmp + '/' + _cid + '/');
+				_fmsDispatcher = new FMSDispatcher(rtmp + '/');
 				_fmsDispatcher.addEventListener("newCmtData", rtmpNewCmtDataHandler);
 			}
 		}
@@ -224,6 +224,7 @@ package org.lala.net
 		private function rtmpNewCmtDataHandler(event:MukioEvent):void
 		{
 			delete event.data.border;
+			event.data.rtmp = true; //增加来自RTMP的Tag
 			EventBus.getInstance().sendMukioEvent("displayRtmp", event.data);
 		}
 

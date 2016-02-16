@@ -22,6 +22,7 @@ package org.lala.net
 			nc.client = this;
 			nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			nc.connect(url);
+
 			
 			rnd = Math.floor(Math.random() * 0x1000000);
 		}

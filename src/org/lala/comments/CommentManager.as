@@ -156,8 +156,9 @@ package org.lala.comments
             }
             /*
             * 如果带有边框,则立即呈现播放
+            * 如果来自RTMP，则立即播放
             */
-            if (obj.border) 
+            if (obj.border || obj.rtmp) 
             {
                 this.start(obj);
             }
