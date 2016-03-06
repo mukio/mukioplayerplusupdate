@@ -21,7 +21,7 @@
     <gateway></gateway>
     <!-- 如果想要实现实时弹幕，请配置好rtmp服务器 -->
     <rtmp>rtmp_url</rtmp>
-    <!-- 如果想要自己解析视频，请配置好地址,变量{$id}为vid -->
-    <videoXML>video_xml</videoXML>
+    <!-- 如果想要解析youku视频，请配置好地址,变量{$id}为vid -->
+    <youku>video_xml</youku>
   </server>
 </conf>

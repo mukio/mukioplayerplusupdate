@@ -299,7 +299,7 @@
 				//弹幕加载完成
 				//开始加载视频
 				//sina qq youku video tudou 类型在此处处理
-				var typeArray:Array = "sina video self youtube rtmp".split(' ');
+				var typeArray:Array = "sina video self youtube rtmp youku".split(' ');
 				if(typeArray.indexOf(config.type) == -1)
 				{
 					if(config.file)
@@ -333,6 +333,7 @@
 							playerTool.loadSinaVideo(config.vid);
 							break;
 						case 'self':
+						case 'youku':
 							playerTool.loadSelfVideo(conf._videoServer.replace(/\{\$id\}/ig,config.vid));
 							break;
 						default:

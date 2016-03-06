@@ -10,11 +10,11 @@ package org.lala.utils
 		public var _load:String;
 		public var _send:String;
 		public var _onHost:String;
-		public var _root:DisplayObject;
 		public var _gateway:String;
-        public var _rtmp:String;
+		public var _rtmp:String;
 		public var _videoServer:String; //自解析
 		public var _sina:String;
+		public var _root:DisplayObject;
         public function CommentXMLConfig(_r:DisplayObject)
         {
             _root = _r;
@@ -26,7 +26,7 @@ package org.lala.utils
             _load = _xml.server.load;
             _send = _xml.server.send;
 			_sina = _xml.server.sina;
-			_videoServer = _xml.server.videoXML;
+			_videoServer = _xml.server.youku;
             _gateway = _xml.server.gateway;
             _onHost = _xml.server.onhost;
 			_rtmp = String(_xml.server.rtmp);
@@ -74,7 +74,9 @@ package org.lala.utils
         {
             return _root.loaderInfo.url;
         }
-        public function getConfURL(fileName:String='config.xml'):String/** 使用自己的配置文件名 **/
+		
+		/** 使用自己的配置文件名 **/
+        public function getConfURL(fileName:String='conf.xml'):String
         {
             return playerURL.replace(/[^\/]+.swf.*/igm,'') + fileName;
         }
