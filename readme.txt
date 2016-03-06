@@ -1,4 +1,13 @@
-﻿MukioPlayer2.000,代号MukioPlayerPlus
+﻿##MukioPlayer for Discuz!
+这个工程是为了兼容原有的Discuz!插件而设计的。
+
+主要修改：
+ - 配置文件改回conf.xml
+ - 保留原有的Youku源解析风格
+
+--------------------
+
+MukioPlayer2.000,代号MukioPlayerPlus
 源代码
 
 使用协议:
