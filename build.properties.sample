@@ -1,0 +1,8 @@
+
+# Customize for local environment 
+
+# Flex sdk home
+FLEX_HOME=Your flex 4 sdk,
+# Location of flexTasks.jar
+flex.ant.loc=${FLEX_HOME}/ant
+
