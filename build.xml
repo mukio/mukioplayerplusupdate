@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project name="mukioplayer" default="compile" basedir=".">
+
+    <!-- specific directory -->
+    <property name="src.dir" value="src" />
+    <property name="bin.dir" value="." />
+    <property name="docs.dir" value="docs" />
+    <property name="libs.dir" value="libs" />
+
+    <!-- Load Environment specific properties from properties file -->
+    <property file="build.properties" />
+
+    <fail unless="FLEX_HOME" message="flex.home should be set (in build.properties file)" />
+
+    <property name="default.local" value="zh_CN" />
+    
+    <property name="encoding" value="UTF-8" />
+
+    <property name="project.name" value="${ant.project.name}" />
+
+    <!-- Load the flex tasks for compiling the actionScript code and running flexUnit -->
+    <taskdef resource="flexTasks.tasks" classpath="${flex.ant.loc}/lib/flexTasks.jar" />
+
+    <!-- Compile Flex files -->
+    <target name="compile" description="Compile the flex part">
+
+        <mxmlc 
+            file="${src.dir}/MukioPlayerPlus.mxml"  
+            output="${bin.dir}/MukioPlayerPlus.swf" 
+            actionscript-file-encoding="UTF-8" 
+            keep-generated-actionscript="false" 
+            incremental="true" as3="true">
+            
+            <!-- Get default compiler options. --> 
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/> 
+ 
+            <!-- List of path elements that form the roots of ActionScript 
+            class hierarchies. --> 
+            <source-path path-element="${FLEX_HOME}/frameworks" />
+            
+            <source-path path-element="${src.dir}"/>
+            
+            <!-- List of SWC files or directories that contain SWC files. --> 
+            <compiler.library-path dir="${FLEX_HOME}/frameworks" append="true"> 
+                <include name="libs" /> 
+                <include name="../bundles/{locale}" /> 
+            </compiler.library-path> 
+            
+            <compiler.library-path dir="${libs.dir}" append="true">
+                <include name="**/*.swc" />
+            </compiler.library-path>
+            
+        </mxmlc>
+        
+         <delete>
+            <fileset dir="${bin.dir}" includes="*.cache"/> 
+         </delete>
+
+
+    </target>
+
+</project>
