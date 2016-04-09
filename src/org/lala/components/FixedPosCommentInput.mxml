@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
                    xmlns:s="library://ns.adobe.com/flex/spark" 
-                   xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="247" borderWeight="0" borderVisible="false" resize="group1_resizeHandler(event)" currentState="E" height.E="500">
+                   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" borderWeight="0" borderVisible="false" resize="group1_resizeHandler(event)" currentState="E" height.E="500">
     <fx:Style>
         @namespace s "library://ns.adobe.com/flex/spark";
         @namespace mx "library://ns.adobe.com/flex/mx";
@@ -185,7 +185,7 @@
 			 indicatorGap="3" verticalGap="2">
         <mx:FormItem label="工作模式" styleName="FormItem" paddingTop="2" width="100%" height="22">
             <s:HGroup verticalAlign="middle">
-                <s:Label text=""  width="10" backgroundColor="0xDDDDDD"/>
+                <s:Label text=""  width="10" backgroundColor="0xffffff"/>
                 <s:RadioButton id="constrainBt" label="限制" groupName="mode" selected="true" change="toConstrain()" toolTip="减少一点数据量" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
                 <s:RadioButton label="全开" groupName="mode" change="toFull()" skinClass="org.lala.components.skins.SparkRadioButtonSkin"/>
             </s:HGroup>
@@ -206,23 +206,23 @@
         <mx:FormItem label="衰弱透明度" styleName="FormItem" paddingTop="2" width="100%" height="22">
             <s:HGroup verticalAlign="middle">
                 <s:Label text=""  width="10"/>
-                <s:NumericStepper id="alphaInNs" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="alphaInNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:Label text="~"  width="10"/>
-                <s:NumericStepper id="alphaOutNs" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="alphaOutNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0.00" maximum="1.00" stepSize="0.01" snapInterval="0.01" value="1.00" height="18" width="50" fontFamily="Arial" fontSize="12"/>
             </s:HGroup>
         </mx:FormItem>
         <mx:FormItem label="生存时间" styleName="FormItem" paddingTop="2" width="100%" height="22">
             <s:HGroup verticalAlign="middle">
                 <s:Label text=""  width="10"/>
-                <s:NumericStepper id="durationNs" minimum="0.0" maximum="10.0" stepSize="0.1" snapInterval="0.1" value="4.5" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="durationNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0.0" maximum="10.0" stepSize="0.1" snapInterval="0.1" value="4.5" height="18" width="50" fontFamily="Arial" fontSize="12"/>
             </s:HGroup>
         </mx:FormItem>
         <mx:FormItem label="位置" label.full="起始点" styleName="FormItem" paddingTop="2" width="100%" height="22">
             <s:HGroup verticalAlign="middle">
                 <s:Label text="x"  width="10"/>
-                <s:NumericStepper id="xpos" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="xpos" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:Label text="y"  width="10"/>
-                <s:NumericStepper id="ypos" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="ypos" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:ToggleButton id="posBt" height="100%" label="拾取"
 								change="postoBt.selected=false;!posBt.selected?toNormal():toCover();"
 								width="45" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
@@ -231,17 +231,17 @@
         <mx:FormItem label="偏斜" styleName="FormItem" paddingTop="2" width="100%" height="22">
             <s:HGroup verticalAlign="middle">
                 <s:Label text="Z"  width="10"/>
-                <s:NumericStepper id="rzNs" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="rzNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:Label text="Y"  width="10"/>
-                <s:NumericStepper id="ryNs" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="ryNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="360" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
             </s:HGroup>
         </mx:FormItem>
         <mx:FormItem label="目标点" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
             <s:HGroup verticalAlign="middle">
                 <s:Label text="x"  width="10"/>
-                <s:NumericStepper id="xposto" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="xposto" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="540" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:Label text="y"  width="10"/>
-                <s:NumericStepper id="yposto" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="yposto" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="383" stepSize="1" snapInterval="1" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
                 <s:ToggleButton id="postoBt" height="100%" label="拾取"
 								change="posBt.selected=false;!postoBt.selected?toNormal():toCover();"
 								width="45" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
@@ -250,13 +250,13 @@
         <mx:FormItem label="移动耗时" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
             <s:HGroup verticalAlign="middle">
                 <s:Label text=""  width="10"/>
-                <s:NumericStepper id="mDurationNs" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="500" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="mDurationNs" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="500" height="18" width="50" fontFamily="Arial" fontSize="12"/>
             </s:HGroup>
         </mx:FormItem>
         <mx:FormItem label="开始暂停" styleName="FormItem" paddingTop="2" width="100%" height="22" enabled.constrain="false">
             <s:HGroup verticalAlign="middle">
                 <s:Label text=""  width="10"/>
-                <s:NumericStepper id="delayNs" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="0" height="18" width="50" fontFamily="Arial" fontSize="12"/>
+                <s:NumericStepper id="delayNs" minimum="0" maximum="10000" stepSize="100" snapInterval="100" value="0" height="18" width="50" fontFamily="Arial" fontSize="12" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" />
             </s:HGroup>
         </mx:FormItem>
         <mx:FormItem label="" styleName="FormItem" paddingTop="2" width="100%">

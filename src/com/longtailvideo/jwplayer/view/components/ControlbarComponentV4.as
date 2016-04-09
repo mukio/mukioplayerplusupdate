@@ -392,13 +392,13 @@ package com.longtailvideo.jwplayer.view.components {
 			}
 			if (_player.config.lightcolor) {
 				light = new ColorTransform();
-				light.color = 0x0099FF;
-				//light.color = _player.config.lightcolor.color;
+				//light.color = 0x0099FF;
+				light.color = _player.config.lightcolor.color;
 			} else {
-				//light = front;
+				light = front;
 				//This is a simple test
-				light = new ColorTransform();
-				light.color = 0x0099FF;
+				//light = new ColorTransform();
+				//light.color = 0x0099FF;
 			}
 			if (light) {
 				try {

@@ -211,10 +211,10 @@
         <mx:FormItem label="位置">
             <s:HGroup gap="2" verticalAlign="middle" height="20">
                 <s:Label text="X:" width="100%"/>
-                <s:NumericStepper id="xpos" height="100%" maximum="540" minimum="0"
+                <s:NumericStepper id="xpos" height="100%" maximum="540" minimum="0" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD"
 								  width="53"/>
                 <s:Label text="Y:" width="100%"/>
-                <s:NumericStepper id="ypos" width="53" maximum="432" minimum="0" height="100%" />
+                <s:NumericStepper id="ypos" width="53" maximum="432" minimum="0" skinClass="org.lala.components.skins.SparkNumericStepper" borderColor="0xDDDDDD" height="100%" />
                 <s:ToggleButton id="positionBt" label="拾取" width="50" click="positionBt_clickHandler(event)" toolTip="在弹出的网格上点一下" skinClass="org.lala.components.skins.SparkToggleButtonSkin"/>
             </s:HGroup>
         </mx:FormItem>
