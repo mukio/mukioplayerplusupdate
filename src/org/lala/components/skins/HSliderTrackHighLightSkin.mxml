@@ -42,6 +42,7 @@ in accordance with the terms of the license agreement accompanying it.
 		override protected function initializationComplete():void
 		{
 			highlightColor = this.getStyle("themeColor");
+			highLight.color = getStyle("themeColor");
 			super.initializationComplete();
 		}
 		
@@ -52,6 +53,7 @@ in accordance with the terms of the license agreement accompanying it.
 				var trackHighlightColor:uint = this.getStyle("themeColor");
 				highlightColor = trackHighlightColor;
 			}
+			
 		}
 	</fx:Script>
 	
@@ -66,7 +68,7 @@ in accordance with the terms of the license agreement accompanying it.
 	<s:Rect left="1" right="1" top="4" bottom="4" bottomLeftRadiusX="2" bottomLeftRadiusY="2" topLeftRadiusX="2" topLeftRadiusY="2" bottomRightRadiusX="0" bottomRightRadiusY="0" topRightRadiusX="0" topRightRadiusY="0">
 		<s:fill>
 			<!-- I'm lazy so that I define the color here -->
-			<s:SolidColor color="0x0099FF" alpha="1" />
+			<s:SolidColor id="highLight" color="0x0099FF" alpha="1" />
 		</s:fill>
 	</s:Rect>
 	

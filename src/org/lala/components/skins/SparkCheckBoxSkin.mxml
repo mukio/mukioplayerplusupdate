@@ -57,6 +57,8 @@
         {
             useChromeColor = true;
             super.initializationComplete();
+			checkMarkFill2.color = getStyle("themeColor");
+			checkMarkFill.color = getStyle("themeColor");
         }
     </fx:Script>
     
