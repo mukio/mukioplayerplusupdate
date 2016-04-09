@@ -71,14 +71,14 @@
         <s:Label text="复制" click="System.setClipboard(outText.text);" toolTip="点击复制" buttonMode="true" color="blue"/>
         <s:Label text="清除" click="outText.text='';" toolTip="点击清除" buttonMode="true" color="blue"/>
     </s:HGroup>
-    <s:TextArea borderColor="0xDDDDDD" id="outText" width="100%" height="30%" editable="false" />
+    <s:TextArea borderColor="0xDDDDDD" id="outText" width="100%" height="30%" editable="false" skinClass="org.lala.components.skins.SparkTextAreaSkin" />
     <s:HGroup>
         <s:Label text="命令:" />
         <s:Label text="复制" click="System.setClipboard(srcText.text);" toolTip="点击复制" buttonMode="true" color="blue"/>
         <s:Label text="清除" click="srcText.text='';" toolTip="点击清除" buttonMode="true" color="blue"/>
         <s:Label text="语言参考" click="navigateToURL(new URLRequest('http://code.google.com/p/mukioplayer/wiki/MukioPlayerScript'));" toolTip="查看API" buttonMode="true" color="blue"/>
     </s:HGroup>
-    <s:TextArea borderColor="0xDDDDDD" id="srcText" width="100%" height="40%" fontFamily="Courier New" fontSize="14" color="#0321A3" keyFocusChange="srcText_keyFocusChangeHandler(event)" />
+    <s:TextArea borderColor="0xDDDDDD" id="srcText" width="100%" height="40%" fontFamily="Courier New" fontSize="14" color="#0321A3" keyFocusChange="srcText_keyFocusChangeHandler(event)" skinClass="org.lala.components.skins.SparkTextAreaSkin" />
     <mx:HBox>
         <s:Button id="previewBt" label="预览" click="previewBt_clickHandler(event)" skinClass="org.lala.components.skins.SparkButtonSkin"/>        
         <s:Button id="runBt" label="送出" click="runBt_clickHandler(event)" skinClass="org.lala.components.skins.SparkButtonSkin"/>

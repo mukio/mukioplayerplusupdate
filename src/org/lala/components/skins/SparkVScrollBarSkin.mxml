@@ -67,27 +67,27 @@ VScrollBarThumbSkin and VScrollBarTrackSkin classes, respectively.
             @see spark.skins.spark.VScrollBarTrackSkin -->
     <s:Button id="track" top="16" bottom="15" height="54"
               focusEnabled="false" tabEnabled="false"
-              skinClass="spark.skins.spark.VScrollBarTrackSkin" />
+              skinClass="org.lala.components.skins.SparkVScrollBarTrackSkin" />
     
     <!--- The default skin class is VScrollBarThumbSkin.
             @copy spark.components.supportClasses.TrackBase#thumb 
             @see spark.skins.spark.VScrollBarThumbSkin -->
     <s:Button id="thumb" 
               focusEnabled="false" visible.inactive="false" tabEnabled="false"
-              skinClass="spark.skins.spark.VScrollBarThumbSkin" />
+              skinClass="org.lala.components.skins.SparkVScrollBarThumbSkin" />
     
     <!--- The default skin class is ScrollBarUpButtonSkin. 
             @copy spark.components.supportClasses.ScrollBarBase#decrementButton 
             @see spark.skins.spark.ScrollBarUpButtonSkin -->
     <s:Button id="decrementButton" top="0" enabled.inactive="false"
               focusEnabled="false" tabEnabled="false"
-              skinClass="spark.skins.spark.ScrollBarUpButtonSkin" />
+              skinClass="org.lala.components.skins.SparkScrollBarUpButtonSkin" />
     
     <!---  The default skin class is ScrollBarDownButtonSkin. 
             @copy spark.components.supportClasses.ScrollBarBase#incrementButton
             @see spark.skins.spark.ScrollBarDownButtonSkin -->
     <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
               focusEnabled="false" tabEnabled="false"
-              skinClass="spark.skins.spark.ScrollBarDownButtonSkin" />
+              skinClass="org.lala.components.skins.SparkScrollBarDownButtonSkin" />
 
 </s:SparkSkin>

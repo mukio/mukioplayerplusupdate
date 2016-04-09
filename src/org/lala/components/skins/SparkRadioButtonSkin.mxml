@@ -58,6 +58,8 @@
         {
             useChromeColor = true;
             super.initializationComplete();
+			dotFill2.color = getStyle("themeColor");
+			dotFill.color = getStyle("themeColor");
         }
     </fx:Script>
     
@@ -72,6 +74,7 @@
          *  @private
          */
         override public function get focusSkinExclusions():Array { return focusExclusions;};
+
         ]]>
     </fx:Script>
     

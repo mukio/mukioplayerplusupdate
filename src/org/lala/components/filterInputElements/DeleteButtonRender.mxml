@@ -11,6 +11,11 @@
                 CommentFilter.getInstance().deleteItem(data.id);
                 CommentFilter.getInstance().savetoSharedObject();
             }
+			override protected function initializationComplete():void
+			{
+				super.initializationComplete();
+				highLight.color = getStyle("themeColor");
+			}
         ]]>
     </fx:Script>
 	<s:states>
@@ -23,7 +28,7 @@
 			 click="closeButton_clickHandler(event)" mouseOver="currentState='hover';" mouseOut="currentState='normal';" mouseDownOutside="currentState='press';">
         <s:Rect x="0" y="0" width="12" height="12"  includeIn="hover" >
             <s:fill>
-				<s:SolidColor color="0x0099FF" />
+				<s:SolidColor id="highLight" color="0x0099FF" />
             </s:fill>
         </s:Rect>
 		<s:Rect x="0" y="0" width="12" height="12"  includeIn="press">
