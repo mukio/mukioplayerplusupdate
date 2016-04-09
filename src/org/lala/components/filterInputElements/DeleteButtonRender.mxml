@@ -11,11 +11,6 @@
                 CommentFilter.getInstance().deleteItem(data.id);
                 CommentFilter.getInstance().savetoSharedObject();
             }
-			override protected function initializationComplete():void
-			{
-				super.initializationComplete();
-				highLight.color = getStyle("themeColor");
-			}
         ]]>
     </fx:Script>
 	<s:states>
