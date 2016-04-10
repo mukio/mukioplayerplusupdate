@@ -44,13 +44,17 @@
             protected function group1_creationCompleteHandler(event:FlexEvent):void
             {
                 config.addEventListener('fontChange',fontChnageHandler);
+				var _loc2_:RegExp = new RegExp("[一-龥]|hei|kai","i");
+				
                 for each(var f:Font in Font.enumerateFonts(true))
                 {
-                    fontNames.addItem({'label':f.fontName});
-                    if(f.fontName == config.font)
-                    {
-                        fontLst.selectedIndex = fontNames.length - 1;
-                    }
+					if(f.fontName.match(_loc2_)){
+                    	fontNames.addItem({'label':f.fontName});
+                   		if(f.fontName == config.font)
+                    	{
+                       		fontLst.selectedIndex = fontNames.length - 1;
+                    	}
+					}
                 }
             }
             

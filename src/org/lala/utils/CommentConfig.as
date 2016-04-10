@@ -5,6 +5,7 @@ package org.lala.utils
     import flash.filters.DropShadowFilter;
     import flash.filters.GlowFilter;
     import flash.net.SharedObject;
+	
     
     import mx.collections.ArrayCollection;
     import mx.styles.CSSStyleDeclaration;
@@ -50,7 +51,7 @@ package org.lala.utils
 				white:[new GlowFilter(0xFFFFFF, 0.85, 4, 4, 3, 1, false, false)]
 			}
         ]);
-        private var _font:String='黑体';
+        private var _font:String='Microsoft Yahei';
         [Bindable]
         /** 速度因子:0.1-2 **/
         public var speede:Number = 1;
@@ -105,7 +106,7 @@ package org.lala.utils
             filterIndex = 0;
             speede = 1;
             sizee = 1;
-            font = '黑体';
+            font = ApplicationConstants.getDefaultFont();
             isChangeUIFont = false;
             quality = 2;
             isPlayerControlApiEnable = true;
