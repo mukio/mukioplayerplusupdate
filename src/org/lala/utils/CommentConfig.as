@@ -51,7 +51,7 @@ package org.lala.utils
 				white:[new GlowFilter(0xFFFFFF, 0.85, 4, 4, 3, 1, false, false)]
 			}
         ]);
-        private var _font:String='Microsoft Yahei';
+        private var _font:String = ApplicationConstants.getDefaultFont();
         [Bindable]
         /** 速度因子:0.1-2 **/
         public var speede:Number = 1;
