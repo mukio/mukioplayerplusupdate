@@ -9,10 +9,10 @@
     <fx:Declarations>
         <!-- 过滤器设置 -->
 			<fx:Array id="filterColumns">
-				<mx:DataGridColumn headerText="删" dataField="" itemRenderer="org.lala.components.filterInputElements.DeleteButtonRender" width="20"/>
-				<mx:DataGridColumn headerText="过滤类别" dataField="mode" labelFunction="modeLabel"/>
+				<mx:DataGridColumn headerText="类别" dataField="mode" labelFunction="modeLabel" width="40"/>
 				<mx:DataGridColumn headerText="关键词" dataField="exp" itemRenderer="org.lala.components.filterInputElements.ColorFieldRender"/>
-				<mx:DataGridColumn headerText="状态" dataField="enable" itemRenderer="org.lala.components.filterInputElements.EnableFieldRender"/>
+				<mx:DataGridColumn headerText="状态" dataField="enable" itemRenderer="org.lala.components.filterInputElements.EnableFieldRender" width="60"/>
+				<mx:DataGridColumn headerText="删除" dataField="" itemRenderer="org.lala.components.filterInputElements.DeleteButtonRender" width="40"/>
 			</fx:Array>
     </fx:Declarations>
     <fx:Script>
