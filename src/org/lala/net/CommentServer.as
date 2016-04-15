@@ -224,7 +224,11 @@ package org.lala.net
 		private function rtmpNewCmtDataHandler(event:MukioEvent):void
 		{
 			delete event.data.border;
-			event.data.rtmp = true; //增加来自RTMP的Tag
+			//这里用弹幕时间来判断是不是RTMP来源的弹幕
+			//如果是0，就立即显示
+			//但这里有个小BUG，普通的stime=0也会判断为rtmp从而立即显示
+			//下次再修吧
+			if(!event.data.stime)event.data.rtmp = true; //增加来自RTMP的Tag
 			EventBus.getInstance().sendMukioEvent("displayRtmp", event.data);
 		}
 

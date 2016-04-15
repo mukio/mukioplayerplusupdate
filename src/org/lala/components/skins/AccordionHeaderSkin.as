@@ -114,23 +114,7 @@ public class AccordionHeaderSkin extends Border
 				drawRoundRect(
 					1, 1,w - 2, h - 2, 0,
 					0xFFFFFF, 1);
-				/***				
-				drawRoundRect(
-					1, 1,w - 2, h - 2, 0,
-					upFillColors, upFillAlphas,
-					verticalGradientMatrix(1, 1, w - 2, h - 2));
 				
-				// top highlight
-				drawRoundRect(
-					1, 1, w - 2, (h - 2) / 2, 0,
-					[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-					verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2)); 
-
-				// bottom edge bevel shadow
-				drawRoundRect(
-					1, h - 2, w - 2, 1, 0,
-					borderColor, 0.1);
-***/				
 				break;
 			}
 						
@@ -165,18 +149,7 @@ public class AccordionHeaderSkin extends Border
 				drawRoundRect(
 					1, 1, w - 2, h - 2, 0,
 					0xEEEEEE, 1);
-/***
-				// top highlight
-				drawRoundRect(
-					1, 1, w - 2, (h - 2) / 2, 0,
-					[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-					verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2)); 
-
-				// bottom edge bevel shadow
-				drawRoundRect(
-					1, h - 2, w - 2, 1, 0,
-					borderColor, 0.1);
-***/				
+				
 				break;
 			}
 						
@@ -190,14 +163,8 @@ public class AccordionHeaderSkin extends Border
 				// fill
 				drawRoundRect(
 					1, 1, w - 2, h - 2, 0,
-					0x0099FF, 1);
-/***				
-				// top highlight
-				drawRoundRect(
-					1, 1, w - 2, (h - 2) / 2, 0,
-					[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-					verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2));
-***/
+					themeColor, 1);
+
 				break;
 			}
 						
@@ -216,18 +183,7 @@ public class AccordionHeaderSkin extends Border
 				drawRoundRect(
 					1, 1, w - 2, h - 2, 0,
 					 0XFFFFFF, 1);
-/***
-				// top highlight
-				drawRoundRect(
-					1, 1, w - 2, (h - 2) / 2, 0,
-					[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-					verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2)); 
 
-				// bottom edge highlight
-				drawRoundRect(
-					1, h - 2, w - 2, 1, 0,
-					borderColor, 0.05);
-***/
 				break;
 			}
 		}

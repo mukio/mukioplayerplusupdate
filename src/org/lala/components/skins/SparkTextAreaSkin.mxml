@@ -266,7 +266,7 @@
     <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>
             <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" weight="1"/>            
+            <s:SolidColorStroke id="borderStroke" color="0xCCCCCC" weight="1"/>            
         </s:stroke>
     </s:Rect>
 
@@ -288,7 +288,7 @@
     </s:Rect>
 
     <!--- Defines the scroller that is used to scroll the TextArea control. -->
-    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false" hasFocusableChildren="false">
+    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false" hasFocusableChildren="false" skinClass="org.lala.components.skins.SparkScrollerSkin">
         <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
         <s:RichEditableText id="textDisplay" heightInLines="10" widthInChars="15" />
     </s:Scroller>

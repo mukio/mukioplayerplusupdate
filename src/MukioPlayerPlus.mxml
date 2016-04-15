@@ -3,6 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:jw="com.longtailvideo.jwplayer.player.*"
+			   preloader="org.lala.components.SwfLoader" 
 			   xmlns:mk="org.lala.components.*" applicationComplete="application1_applicationCompleteHandler(event)" backgroundColor.fullScreen="#000000" backgroundColor.normal="#FFFFFF" height.normal="100%" width.normal="100%" backgroundColor.wideScreen="#FFFFFF" height.wideScreen="100%" width.wideScreen="100%" currentStateChange="application1_currentStateChangeHandler(event)" addedToStage="application1_addedToStageHandler(event)">
 	<fx:Style source="MukioPlayerPlus.css"/>
 	<s:states>
