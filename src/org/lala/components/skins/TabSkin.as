@@ -40,27 +40,7 @@ package org.lala.components.skins
 			var falseFillColors:Array = []; /* of Number*/ // added style prop
 			falseFillColors[0] = ColorUtil.adjustBrightness2(fillColors[0], -5);
 			falseFillColors[1] = ColorUtil.adjustBrightness2(fillColors[1], -5);
-/***			
-			// Derivative styles.
-			var derStyles:Object = calcDerivedStyles(themeColor, borderColor,
-				falseFillColors[0],
-				falseFillColors[1],
-				fillColors[0], fillColors[1]);
-			
-			var parentedByTabNavigator:Boolean = parent != null &&
-				parent.parent != null &&
-				parent.parent.parent != null &&
-				isTabNavigator(parent.parent.parent);
-			
-			var tabOffset:Number = 1;
-			if (parentedByTabNavigator)
-				tabOffset = Object(parent.parent.parent).borderMetrics.top;
-			
-			var drawBottomLine:Boolean =
-				parentedByTabNavigator &&
-				IStyleClient(parent.parent.parent).getStyle("borderStyle") != "none" &&
-				tabOffset >= 0;
-***/			
+		
 			var cornerRadius2:Number = Math.max(cornerRadius - 2, 0);
 			var cr:Object = { tl: cornerRadius, tr: cornerRadius, bl: 0, br: 0 };
 			var cr2:Object = { tl: cornerRadius2, tr: cornerRadius2, bl: 0, br: 0 };
@@ -85,31 +65,7 @@ package org.lala.components.skins
 					drawRoundRect(
 						1, 1, w - 2, h - 2, cr2,
 						0xFFFFFF, 1);
-/***					
-					// tab highlight
-					drawRoundRect(
-						1, 1, w - 2, (h - 2) / 2, cr2,
-						[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-						verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2));
 					
-					// tab bottom line
-					if (drawBottomLine)
-					{
-						drawRoundRect(
-							0, h - tabOffset, w, tabOffset, 0,
-							borderColor, fillAlphas[1]);
-					}
-					
-					// tab shadow	
-					drawRoundRect(
-						0, h - 2, w, 1, 0,
-						0x000000, 0.09);
-					
-					// tab shadow
-					drawRoundRect(
-						0, h - 3, w, 1, 0,
-						0x000000, 0.03);
-***/					
 					break;
 				}
 					
@@ -136,31 +92,7 @@ package org.lala.components.skins
 					drawRoundRect(
 						1, 1, w - 2, h - 2, cr2,
 						0xEEEEEE, 1);
-/***					
-					// tab highlight
-					drawRoundRect(
-						1, 1, w - 2, (h - 2) / 2, cr2,
-						[ 0xFFFFFF, 0xFFFFFF ], highlightAlphas,
-						verticalGradientMatrix(1, 1, w - 2, (h - 2) / 2));
 					
-					// tab bottom line
-					if (drawBottomLine)
-					{
-						drawRoundRect(
-							0, h - tabOffset, w, tabOffset, 0,
-							borderColor, fillAlphas[1]);
-					}
-					
-					// tab shadow	
-					drawRoundRect(
-						0, h - 2, w, 1, 0,
-						0x000000, 0.09);
-					
-					// tab shadow
-					drawRoundRect(
-						0, h - 3, w, 1, 0,
-						0x000000, 0.03);
-***/					
 					break;
 				}
 					
@@ -181,25 +113,7 @@ package org.lala.components.skins
 					drawRoundRect(
 						1, 1, w - 2, h - 2, cr2,
 						0xDDDDDD, 1);
-/***					
-					// tab bottom line
-					if (drawBottomLine)
-					{
-						drawRoundRect(
-							0, h - tabOffset, w, tabOffset, 0,
-							borderColor, fillAlphas[1]);
-					}
 					
-					// tab shadow	
-					drawRoundRect(
-						0, h - 2, w, 1, 0,
-						0x000000, 0.09);
-					
-					// tab shadow
-					drawRoundRect(
-						0, h - 3, w, 1, 0,
-						0x000000, 0.03);
-***/					
 					break;
 				}
 					
@@ -239,15 +153,7 @@ package org.lala.components.skins
 					drawRoundRect(
 						1, 1, w - 2, h - 2, cr2,
 						0xFFFFFF, 1);
-/***					
-					// tab bottom line
-					if (drawBottomLine)
-					{
-						drawRoundRect(
-							1, h - tabOffset, w - 2, tabOffset, 0,
-							backgroundColor, backgroundAlpha);
-					}
-***/					
+					
 					break;
 				}
 			}

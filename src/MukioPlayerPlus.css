@@ -4,7 +4,6 @@
 
 .boldBtStyle
 {
-    font-weight:bold;
 }
 .cmtDataGridStyle
 {
@@ -30,24 +29,23 @@ global
 {
     font-family: '微软雅黑','simsun','_sans';
 	themeColor: #0099ff;
+	color: #444444;
 }
 mx|ToolTip
 {
     backgroundColor: white;
     backgroundAlpha: 0.85;
     cornerRadius: 0;
-    color: black;
+    color: #444444;
     font-size:12px;
 	
 }
 .boldStyle
 {
-    fontWeight:bold;
 }
 
 .customAccordionHeadStyles {
 	skin: ClassReference("org.lala.components.skins.AccordionHeaderSkin");
-	fontWeight:bold;
 } 
 
 .tabBar{
@@ -60,5 +58,4 @@ mx|ToolTip
 	selected-down-skin:ClassReference("org.lala.components.skins.TabSkin");	
 	selected-over-skin:ClassReference("org.lala.components.skins.TabSkin");	
 	selected-disabled-skin:ClassReference("org.lala.components.skins.TabSkin");
-	fontWeight:bold;
 }

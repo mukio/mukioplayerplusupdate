@@ -560,8 +560,8 @@
 				<mk:IconButton id="wideToggleBt" icon="@Embed(source='assets/wideScreenIcon.png')" right="0" click="wideToggleEvent()" width="26" height="22" skinClass="org.lala.components.skins.IconButtonSkin"/>
 			</s:HGroup>
 		</s:Group>
-		<mx:TabNavigator id="TabNav" change="TabNavOnChange();"  tabStyleName="tabBar" height="100%" width="100%" excludeFrom="fullScreen" paddingTop="0" borderVisible="false" width.normal="300" width.wideScreen="0" right="0" top="0">
-			<s:NavigatorContent id="navCmt" width="100%" height="100%" label="弹幕"
+		<mx:TabNavigator id="TabNav" change="TabNavOnChange();" tabWidth="100" tabStyleName="tabBar" height="100%" width="100%" excludeFrom="fullScreen" paddingTop="0" paddingRight="0" borderVisible="false" width.normal="298" width.wideScreen="0" right="0" top="0">
+			<s:NavigatorContent id="navCmt" width="100%" height="100%" label="弹幕" 
 								icon="@Embed(source='assets/listIconHor.png')">
 				<mk:CmtDataGrid id="cmtTable"  headerSeparatorSkin="org.lala.components.skins.DataGridHeaderSeparator" headerStyleName="boldStyle"  borderColor="0xDDDDDD" verticalScrollBarStyleName="cmtSBS" headerBackgroundSkin="org.lala.components.DataGridHeaderSkin" styleName="cmtDataGridStyle" x="0" y="0" width="100%" height="100%" horizontalScrollPolicy.wideScreen="on" dataProvider="{commentView.provider.commentResource}" columns="{cmtColumns}" />
 			</s:NavigatorContent>
