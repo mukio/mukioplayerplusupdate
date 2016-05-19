@@ -556,8 +556,8 @@
 			</s:BorderContainer>
 			<s:HGroup excludeFrom="fullScreen" width="100%" gap="1">
 				<mk:NormalCommentInput id="normalCommentInput" width="100%" height="22" />
-				<mk:IconButton id="visibleToggleBt" icon="@Embed(source='assets/commentShowIconHor.png')" right="0" click="visibleButtonHandler(event)" width="26" height="22" skinClass="org.lala.components.skins.IconButtonSkin"/>
-				<mk:IconButton id="wideToggleBt" icon="@Embed(source='assets/wideScreenIcon.png')" right="0" click="wideToggleEvent()" width="26" height="22" skinClass="org.lala.components.skins.IconButtonSkin"/>
+				<mk:IconButton id="visibleToggleBt" icon="@Embed(source='assets/commentShowIconHor.png')" right="0" click="visibleButtonHandler(event)" width="26" height="22" skinClass="org.lala.components.skins.IconButtonSkin" toolTip="弹幕显示开关"/>
+				<mk:IconButton id="wideToggleBt" icon="@Embed(source='assets/wideScreenIcon.png')" right="0" click="wideToggleEvent()" width="26" height="22" skinClass="org.lala.components.skins.IconButtonSkin" toolTip="宽屏" />
 			</s:HGroup>
 		</s:Group>
 		<mx:TabNavigator id="TabNav" change="TabNavOnChange();" tabWidth="100" tabStyleName="tabBar" height="100%" width="100%" excludeFrom="fullScreen" paddingTop="0" paddingRight="0" borderVisible="false" width.normal="298" width.wideScreen="0" right="0" top="0">
